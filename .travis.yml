@@ -29,4 +29,5 @@ android:
     - android-sdk-license-.+
 
 script:
-  - "./gradlew clean build test --stacktrace"
+  - "sh ./runners/dev/build.sh"
+  - "sh ./runners/dev/test.sh"
