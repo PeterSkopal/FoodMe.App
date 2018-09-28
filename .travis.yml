@@ -29,5 +29,8 @@ android:
     - android-sdk-license-.+
 
 script:
-  - "sh ./runners/dev/build.sh"
-  - "sh ./runners/dev/test.sh"
+  - sh ./runners/dev/build.sh
+  - sh ./runners/dev/test.sh
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
