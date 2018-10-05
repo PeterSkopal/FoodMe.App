@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
@@ -15,23 +16,23 @@ class MainActivity : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_my_kitchen -> {
-                message.setText(R.string.title_kitchen)
+                replaceFragment(MyKitchen(), R.id.main_frame)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_shopping_list -> {
-                message.setText(R.string.title_shopping_list)
+                replaceFragment(ShoppingList(), R.id.main_frame)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_scanner -> {
-                message.setText(R.string.title_scanner)
+                replaceFragment(Scanner(), R.id.main_frame)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_footprint -> {
-                message.setText(R.string.title_footprint)
+                replaceFragment(Footprint(), R.id.main_frame)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_settings -> {
-                message.setText(R.string.title_settings)
+                replaceFragment(Settings(), R.id.main_frame)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -44,10 +45,11 @@ class MainActivity : AppCompatActivity() {
 
         navigation.disableShiftMode()
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        navigation.setSelectedItemId(R.id.navigation_my_kitchen);
     }
 
     /**
-     * disable shift mode on Android BottomNavigationView
+     * Disable shift mode on Android BottomNavigationView
      * https://stackoverflow.com/questions/40176244/how-to-disable-bottomnavigationview-shift-mode
      */
     @SuppressLint("RestrictedApi")
@@ -69,5 +71,17 @@ class MainActivity : AppCompatActivity() {
         } catch (e: IllegalStateException) {
             Log.e(ContentValues.TAG, "Unable to change value of shift mode", e)
         }
+    }
+
+    /**
+     * Adding or Replacing a fragment helper functions
+     * https://medium.com/thoughts-overflow/how-to-add-a-fragment-in-kotlin-way-73203c5a450b
+     */
+    fun AppCompatActivity.addFragment(fragment: Fragment, frameId: Int){
+        supportFragmentManager.inTransaction { add(frameId, fragment) }
+    }
+
+    fun AppCompatActivity.replaceFragment(fragment: Fragment, frameId: Int) {
+        supportFragmentManager.inTransaction { replace(frameId, fragment) }
     }
 }
