@@ -9,6 +9,14 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+
+import com.example.skopal.foodme.layouts.footprint.Footprint
+import com.example.skopal.foodme.layouts.mykitchen.MyKitchen
+import com.example.skopal.foodme.layouts.scanner.Scanner
+import com.example.skopal.foodme.layouts.settings.Settings
+import com.example.skopal.foodme.layouts.shoppinglist.ShoppingList
+import com.example.skopal.foodme.utils.inTransaction
+
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
