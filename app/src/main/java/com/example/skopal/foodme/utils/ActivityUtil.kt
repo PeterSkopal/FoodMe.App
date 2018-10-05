@@ -1,4 +1,4 @@
-package com.example.skopal.foodme
+package com.example.skopal.foodme.utils
 
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
