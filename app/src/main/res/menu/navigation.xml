@@ -4,26 +4,26 @@
     <item
         android:id="@+id/navigation_my_kitchen"
         android:icon="@drawable/ic_my_kitchen_24dp"
-        android:title="@string/title_kitchen" />
+        android:title="@string/nav_title_kitchen" />
 
     <item
         android:id="@+id/navigation_shopping_list"
         android:icon="@drawable/ic_shopping_list_24dp"
-        android:title="@string/title_shopping_list" />
+        android:title="@string/nav_title_shopping_list" />
 
     <item
         android:id="@+id/navigation_scanner"
         android:icon="@drawable/ic_receipt_24dp"
-        android:title="@string/title_scanner" />
+        android:title="@string/nav_title_scanner" />
 
     <item
         android:id="@+id/navigation_footprint"
         android:icon="@drawable/ic_footprint_24dp"
-        android:title="@string/title_footprint" />
+        android:title="@string/nav_title_footprint" />
 
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_settings_24dp"
-        android:title="@string/title_settings" />
+        android:title="@string/nav_title_settings" />
 
 </menu>
