@@ -92,4 +92,8 @@ class MainActivity : AppCompatActivity() {
     fun AppCompatActivity.replaceFragment(fragment: Fragment, frameId: Int) {
         supportFragmentManager.inTransaction { replace(frameId, fragment) }
     }
+
+    fun setActionBarTitle(title: String) {
+        supportActionBar!!.title = title
+    }
 }
