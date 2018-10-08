@@ -9,9 +9,12 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.MenuItem
 
 import com.example.skopal.foodme.layouts.footprint.Footprint
+import com.example.skopal.foodme.layouts.mykitchen.GroceryFragment
 import com.example.skopal.foodme.layouts.mykitchen.MyKitchen
+import com.example.skopal.foodme.layouts.mykitchen.dummy.DummyContent
 import com.example.skopal.foodme.layouts.scanner.Scanner
 import com.example.skopal.foodme.layouts.settings.Settings
 import com.example.skopal.foodme.layouts.shoppinglist.ShoppingList
@@ -19,7 +22,9 @@ import com.example.skopal.foodme.utils.inTransaction
 
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+
+
+class MainActivity : AppCompatActivity(), GroceryFragment.OnListFragmentInteractionListener {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -52,19 +57,40 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        navigation.setSelectedItemId(R.id.navigation_my_kitchen);
+        navigation.setSelectedItemId(R.id.navigation_my_kitchen)
     }
+
+    /*
+     * Callback function from My Groceries Fragment in 'My Kitchen'
+     */
+    override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
+        TODO("not implemented click on items in grocery list")
+        //To change body of created functions use File | Settings | File Templates.
+    }
+
+
+    /*
+     * Utils
+     */
 
     /**
      * Adding or Replacing a fragment helper functions
      * https://medium.com/thoughts-overflow/how-to-add-a-fragment-in-kotlin-way-73203c5a450b
      */
-    fun AppCompatActivity.addFragment(fragment: Fragment, frameId: Int){
+    fun AppCompatActivity.addFragment(fragment: Fragment, frameId: Int) {
         supportFragmentManager.inTransaction { add(frameId, fragment) }
     }
 
-    fun AppCompatActivity.replaceFragment(fragment: Fragment, frameId: Int) {
+    fun AppCompatActivity.replaceFragment(fragment: Fragment, frameId: Int, backButton: Boolean = false) {
+        supportActionBar?.setDisplayHomeAsUpEnabled(backButton)
         supportFragmentManager.inTransaction { replace(frameId, fragment) }
+    }
+
+    /*
+     * Publicly available function
+     */
+    fun changeScreen(fragment: Fragment, frameId: Int, backButton: Boolean = false) {
+        replaceFragment(fragment, frameId, backButton)
     }
 
     fun setActionBarTitle(title: String) {
