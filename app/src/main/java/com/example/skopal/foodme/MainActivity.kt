@@ -51,34 +51,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        navigation.disableShiftMode()
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.setSelectedItemId(R.id.navigation_my_kitchen);
-    }
-
-    /**
-     * Disable shift mode on Android BottomNavigationView
-     * https://stackoverflow.com/questions/40176244/how-to-disable-bottomnavigationview-shift-mode
-     */
-    @SuppressLint("RestrictedApi")
-    fun BottomNavigationView.disableShiftMode() {
-        val menuView = getChildAt(0) as BottomNavigationMenuView
-        try {
-            val shiftingMode = menuView::class.java.getDeclaredField("mShiftingMode")
-            shiftingMode.isAccessible = true
-            shiftingMode.setBoolean(menuView, false)
-            shiftingMode.isAccessible = false
-            for (i in 0 until menuView.childCount) {
-                val item = menuView.getChildAt(i) as BottomNavigationItemView
-                item.setShiftingMode(false)
-                // set once again checked value, so view will be updated
-                item.setChecked(item.itemData.isChecked)
-            }
-        } catch (e: NoSuchFieldException) {
-            Log.e(ContentValues.TAG, "Unable to get shift mode field", e)
-        } catch (e: IllegalStateException) {
-            Log.e(ContentValues.TAG, "Unable to change value of shift mode", e)
-        }
     }
 
     /**
