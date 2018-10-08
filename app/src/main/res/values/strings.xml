@@ -2,11 +2,18 @@
 
     <!-- Titles -->
     <string name="app_name">FoodMe</string>
+
     <string name="title_kitchen">My Kitchen</string>
+    <string name="title_groceries">My Groceries</string>
+
     <string name="title_shopping_list">Shopping List</string>
+
     <string name="title_scanner">Scan a Receipt or Barcode</string>
+
     <string name="title_footprint">Your Carbon Footprint</string>
+
     <string name="title_settings">Settings</string>
+
 
     <!-- Bottom Navigation Titles -->
     <string name="nav_title_kitchen">Kitchen</string>
