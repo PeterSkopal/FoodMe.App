@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 
 import com.example.skopal.foodme.layouts.footprint.Footprint
 import com.example.skopal.foodme.layouts.mykitchen.GroceryFragment
@@ -64,30 +65,47 @@ class MainActivity : AppCompatActivity(), GroceryFragment.OnListFragmentInteract
 
 
     /*
-     * Utils
+     * Private Utils
      */
 
     /**
      * Adding or Replacing a fragment helper functions
      * https://medium.com/thoughts-overflow/how-to-add-a-fragment-in-kotlin-way-73203c5a450b
      */
-    fun AppCompatActivity.addFragment(fragment: Fragment, frameId: Int) {
+    private fun AppCompatActivity.addFragment(fragment: Fragment, frameId: Int) {
         supportFragmentManager.inTransaction { add(frameId, fragment) }
     }
 
-    fun AppCompatActivity.replaceFragment(fragment: Fragment, frameId: Int, backButton: Boolean = false) {
-        supportActionBar?.setDisplayHomeAsUpEnabled(backButton)
-        supportFragmentManager.inTransaction { replace(frameId, fragment) }
+    private fun AppCompatActivity.replaceFragment(fragment: Fragment, frameId: Int, addToStack: Boolean = false) {
+        setBackArrowVisible(addToStack)
+        supportFragmentManager.inTransaction {
+            if (addToStack) addToBackStack(null)
+            replace(frameId, fragment)
+        }
     }
 
-    /*
-     * Publicly available function
+    private fun setBackArrowVisible(bool: Boolean) {
+        supportActionBar?.setDisplayHomeAsUpEnabled(bool)
+    }
+
+    /**
+     * Publicly available functions
      */
-    fun changeScreen(fragment: Fragment, frameId: Int, backButton: Boolean = false) {
-        replaceFragment(fragment, frameId, backButton)
+    fun changeScreen(fragment: Fragment, frameId: Int, addToStack: Boolean = false) {
+        replaceFragment(fragment, frameId, addToStack)
     }
 
     fun setActionBarTitle(title: String) {
         supportActionBar!!.title = title
+    }
+
+
+    /**
+     * Pops the back stack when user presses back button in the Application Action Bar
+     */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        supportFragmentManager.popBackStack()
+        if (supportFragmentManager.backStackEntryCount <= 1) setBackArrowVisible(false)
+        return true
     }
 }
