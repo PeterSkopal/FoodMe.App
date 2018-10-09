@@ -1,19 +1,14 @@
 package com.example.skopal.foodme
 
-import android.annotation.SuppressLint
-import android.content.ContentValues
 import android.os.Bundle
-import android.support.design.internal.BottomNavigationItemView
-import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import android.view.MenuItem
 
 import com.example.skopal.foodme.layouts.footprint.Footprint
 import com.example.skopal.foodme.layouts.mykitchen.GroceryFragment
 import com.example.skopal.foodme.layouts.mykitchen.MyKitchen
+import com.example.skopal.foodme.layouts.mykitchen.RecipeFragment
 import com.example.skopal.foodme.layouts.mykitchen.dummy.DummyContent
 import com.example.skopal.foodme.layouts.scanner.Scanner
 import com.example.skopal.foodme.layouts.settings.Settings
@@ -23,8 +18,7 @@ import com.example.skopal.foodme.utils.inTransaction
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-
-class MainActivity : AppCompatActivity(), GroceryFragment.OnListFragmentInteractionListener {
+class MainActivity : AppCompatActivity(), GroceryFragment.OnListFragmentInteractionListener, RecipeFragment.OnListFragmentInteractionListener {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {

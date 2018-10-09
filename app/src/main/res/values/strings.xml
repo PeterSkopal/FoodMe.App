@@ -5,6 +5,7 @@
 
     <string name="title_kitchen">My Kitchen</string>
     <string name="title_groceries">My Groceries</string>
+    <string name="title_recipes">Recipes</string>
     <string name="kitchen_generate_recipe">Generate Recipes</string>
 
     <string name="title_shopping_list">Shopping List</string>

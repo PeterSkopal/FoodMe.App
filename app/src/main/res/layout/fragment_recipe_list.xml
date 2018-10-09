@@ -2,13 +2,13 @@
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/grocery_list"
-    android:name="com.example.skopal.foodme.layouts.mykitchen.GroceryFragment"
+    android:id="@+id/list"
+    android:name="com.example.skopal.foodme.layouts.mykitchen.RecipeFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:layout_marginBottom="@dimen/navigation_bar_height"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".layouts.mykitchen.GroceryFragment"
-    tools:listitem="@layout/fragment_grocery" />
+    tools:context=".layouts.mykitchen.RecipeFragment"
+    tools:listitem="@layout/fragment_recipe" />
