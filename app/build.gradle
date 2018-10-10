@@ -34,6 +34,9 @@ dependencies {
     implementation "com.android.support:support-vector-drawable:${rootProject.ext.supportLibVersion}"
     implementation "com.android.support:support-v4:${rootProject.ext.supportLibVersion}"
     implementation "com.android.support:recyclerview-v7:${rootProject.ext.supportLibVersion}"
+    implementation "com.github.jkcclemens:khttp:master-SNAPSHOT"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.30.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.30.2"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
