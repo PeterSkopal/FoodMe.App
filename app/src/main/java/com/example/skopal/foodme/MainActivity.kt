@@ -5,6 +5,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import com.example.skopal.foodme.classes.GroceryItem
 
 import com.example.skopal.foodme.layouts.footprint.Footprint
 import com.example.skopal.foodme.layouts.mykitchen.GroceryFragment
@@ -59,6 +60,10 @@ class MainActivity : AppCompatActivity(), GroceryFragment.OnListFragmentInteract
      * Callback function from My Groceries Fragment in 'My Kitchen'
      */
     override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
+        TODO("not implemented click on items in grocery list")
+        //To change body of created functions use File | Settings | File Templates.
+    }
+    override fun onListFragmentInteraction(item: GroceryItem?) {
         TODO("not implemented click on items in grocery list")
         //To change body of created functions use File | Settings | File Templates.
     }
