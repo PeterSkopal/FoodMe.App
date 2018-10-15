@@ -57,7 +57,7 @@ class GroceryFragment : Fragment() {
                 view.addItemDecoration(itemDecor)
             }
         }
-        return view
+        return view;
     }
 
     override fun onAttach(context: Context) {
