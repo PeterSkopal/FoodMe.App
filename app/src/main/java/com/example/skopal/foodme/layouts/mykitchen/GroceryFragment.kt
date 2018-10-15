@@ -3,6 +3,7 @@ package com.example.skopal.foodme.layouts.mykitchen
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -10,9 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.skopal.foodme.R
+import com.example.skopal.foodme.classes.GroceryItem
+import com.example.skopal.foodme.services.FoodMeApiGrocery
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.launch
 
-import com.example.skopal.foodme.layouts.mykitchen.dummy.DummyContent
-import com.example.skopal.foodme.layouts.mykitchen.dummy.DummyContent.DummyItem
 
 /**
  * A fragment representing a list of Items.
@@ -21,10 +27,9 @@ import com.example.skopal.foodme.layouts.mykitchen.dummy.DummyContent.DummyItem
  */
 class GroceryFragment : Fragment() {
 
-    // TODO: Customize parameters
     private var columnCount = 1
-
     private var listener: OnListFragmentInteractionListener? = null
+    private var gson = Gson()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -37,10 +42,22 @@ class GroceryFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyGroceryRecyclerViewAdapter(DummyContent.ITEMS, listener)
+
+                FoodMeApiGrocery().getGroceries{ res ->
+                    GlobalScope.launch(Dispatchers.Main) {
+
+                        var arr = mutableListOf<GroceryItem>()
+                        for (item in gson.fromJson(res, JsonArray::class.java)) {
+                            arr.add(gson.fromJson(item, GroceryItem::class.java))
+                        }
+                        adapter = MyGroceryRecyclerViewAdapter(arr, listener)
+                    }
+                }
+                val itemDecor = DividerItemDecoration(context, resources.configuration.orientation)
+                view.addItemDecoration(itemDecor)
             }
         }
-        return view
+        return view;
     }
 
     override fun onAttach(context: Context) {
@@ -70,7 +87,7 @@ class GroceryFragment : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: DummyItem?)
+        fun onListFragmentInteraction(item: GroceryItem?)
     }
 
 }
