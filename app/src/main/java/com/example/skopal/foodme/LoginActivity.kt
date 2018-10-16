@@ -25,8 +25,8 @@ import android.widget.TextView
 import com.example.skopal.foodme.classes.TokenResponse
 import com.example.skopal.foodme.constants.SecureKey
 import com.example.skopal.foodme.services.FoodMeApiUser
+import com.example.skopal.foodme.services.KeyService
 import com.google.gson.Gson
-import com.securepreferences.SecurePreferences
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.ArrayList
 
@@ -39,9 +39,13 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
      */
     private var mAuthTask: UserLoginTask? = null
     private var gson = Gson()
+    private lateinit var keyService: KeyService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        keyService = KeyService(baseContext)
+
         setContentView(R.layout.activity_login)
         // Set up the login form.
         populateAutoComplete()
@@ -247,12 +251,13 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     inner class UserLoginTask internal constructor(private val mEmail: String, private val mPassword: String) : AsyncTask<Void, Void, Boolean>() {
 
         override fun doInBackground(vararg params: Void): Boolean? {
+
             try {
-                var preferences = SecurePreferences(baseContext)
                 FoodMeApiUser().loginUser(mEmail, mPassword) { res ->
                     val response = gson.fromJson(res, TokenResponse::class.java)
-                    preferences.edit().putString(SecureKey.USER_TOKEN, response.token).apply()
-                    preferences.edit().putString(SecureKey.USER_MAIL, response.email).apply()
+                    keyService.addKey(SecureKey.USER_TOKEN, response.token)
+                    keyService.addKey(SecureKey.USER_MAIL, response.email)
+                    onPostExecute(true)
                 }
                 return true
             } catch (e: InterruptedException) {

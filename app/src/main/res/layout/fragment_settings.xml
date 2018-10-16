@@ -5,10 +5,19 @@
     android:layout_height="match_parent"
     tools:context=".layouts.settings.Settings">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/title_settings" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="bottom">
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:id="@+id/logout_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/navigation_bar_height"
+            android:text="@string/logout" />
+
+    </RelativeLayout>
 
 </FrameLayout>

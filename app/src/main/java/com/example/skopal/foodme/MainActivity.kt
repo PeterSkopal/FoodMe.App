@@ -16,9 +16,8 @@ import com.example.skopal.foodme.layouts.mykitchen.dummy.DummyContent
 import com.example.skopal.foodme.layouts.scanner.Scanner
 import com.example.skopal.foodme.layouts.settings.Settings
 import com.example.skopal.foodme.layouts.shoppinglist.ShoppingList
+import com.example.skopal.foodme.services.KeyService
 import com.example.skopal.foodme.utils.inTransaction
-import com.securepreferences.SecurePreferences
-
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -50,9 +49,14 @@ class MainActivity : AppCompatActivity(), GroceryFragment.OnListFragmentInteract
         false
     }
 
+    private lateinit var keyService: KeyService
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        keyService = KeyService(baseContext)
         login()
+
         setContentView(R.layout.activity_main)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
@@ -98,13 +102,11 @@ class MainActivity : AppCompatActivity(), GroceryFragment.OnListFragmentInteract
     }
 
     private fun login() {
-        val preferences = SecurePreferences(baseContext)
-        val token = preferences.getString(SecureKey.USER_TOKEN, null)
-        val email = preferences.getString(SecureKey.USER_MAIL, null)
+        val token = keyService.getKey(SecureKey.USER_TOKEN)
+        val email = keyService.getKey(SecureKey.USER_MAIL)
 
         if (token === null || email === null) {
-            val intent = Intent(baseContext, LoginActivity::class.java)
-            startActivity(intent)
+            changeActivity(LoginActivity::class.java)
         }
     }
 
@@ -115,8 +117,18 @@ class MainActivity : AppCompatActivity(), GroceryFragment.OnListFragmentInteract
         replaceFragment(fragment, frameId, addToStack)
     }
 
+    fun <T> changeActivity(activity: Class<T>) {
+        val intent = Intent(baseContext, activity)
+        startActivity(intent)
+    }
+
     fun setActionBarTitle(title: String) {
         supportActionBar!!.title = title
+    }
+
+    fun removeKeys() {
+        keyService.removeKey(SecureKey.USER_TOKEN)
+        keyService.removeKey(SecureKey.USER_MAIL)
     }
 
 
