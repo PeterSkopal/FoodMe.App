@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.skopal.foodme.MainActivity
 import com.example.skopal.foodme.R
 import com.example.skopal.foodme.classes.GroceryItem
 import com.example.skopal.foodme.services.FoodMeApiGrocery
@@ -43,9 +44,10 @@ class GroceryFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
 
-                FoodMeApiGrocery().getGroceries{ res ->
-                    GlobalScope.launch(Dispatchers.Main) {
+                val baseContext = (activity as MainActivity).baseContext
 
+                FoodMeApiGrocery(baseContext).getGroceries{ res ->
+                    GlobalScope.launch(Dispatchers.Main) {
                         var arr = mutableListOf<GroceryItem>()
                         for (item in gson.fromJson(res, JsonArray::class.java)) {
                             arr.add(gson.fromJson(item, GroceryItem::class.java))
@@ -57,7 +59,7 @@ class GroceryFragment : Fragment() {
                 view.addItemDecoration(itemDecor)
             }
         }
-        return view;
+        return view
     }
 
     override fun onAttach(context: Context) {
