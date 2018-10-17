@@ -7,11 +7,12 @@ android {
     compileSdkVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         applicationId "com.example.skopal.foodme"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -34,6 +35,7 @@ dependencies {
     implementation "com.android.support:support-vector-drawable:${rootProject.ext.supportLibVersion}"
     implementation "com.android.support:support-v4:${rootProject.ext.supportLibVersion}"
     implementation "com.android.support:recyclerview-v7:${rootProject.ext.supportLibVersion}"
+    implementation "com.github.AnyChart:AnyChart-Android:1.0.5"
     implementation "com.github.jkcclemens:khttp:master-SNAPSHOT"
     implementation "com.google.code.gson:gson:2.8.5"
     implementation "com.scottyab:secure-preferences-lib:0.1.4"
