@@ -9,7 +9,7 @@
     <com.anychart.AnyChartView
         android:id="@+id/chart_footprint"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="300dp"
         android:layout_marginBottom="@dimen/navigation_bar_height"
         />
 
