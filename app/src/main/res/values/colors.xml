@@ -6,4 +6,12 @@
     <color name="colorAccentTwo">#ce008e</color>
 
     <color name="colorWhite">#fcfcfc</color>
+    <color name="backgroundColor">#fafafa</color>
+
+    <!-- Chart Colors -->
+    <color name="colorChartMeat">#b8ff1c</color>
+    <color name="colorChartFish">#a0e800</color>
+    <color name="colorChartDairy">#7cb500</color>
+    <color name="colorChartVegetables">#598200</color>
+
 </resources>
