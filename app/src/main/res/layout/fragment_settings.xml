@@ -15,7 +15,7 @@
             android:id="@+id/logout_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/navigation_bar_height"
+            android:layout_marginBottom="@dimen/navigation_bar_margin"
             android:text="@string/logout" />
 
     </RelativeLayout>
