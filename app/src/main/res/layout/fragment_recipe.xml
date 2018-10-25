@@ -10,6 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="@dimen/cardview_margin"
+        android:layout_marginBottom="@dimen/cardview_margin"
+        android:layout_marginRight="@dimen/cardview_margin"
+        android:layout_marginLeft="@dimen/cardview_margin"
         app:cardCornerRadius="@dimen/cardview_radius">
 
         <ImageView
