@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.example.skopal.foodme.classes.GroceryItem
+import com.example.skopal.foodme.classes.ShoppingItem
 import com.example.skopal.foodme.constants.SecureKey
 import com.example.skopal.foodme.layouts.footprint.Footprint
 import com.example.skopal.foodme.layouts.mykitchen.GroceryFragment
@@ -15,13 +16,17 @@ import com.example.skopal.foodme.layouts.mykitchen.RecipeFragment
 import com.example.skopal.foodme.layouts.mykitchen.dummy.DummyContent
 import com.example.skopal.foodme.layouts.scanner.Scanner
 import com.example.skopal.foodme.layouts.settings.Settings
+import com.example.skopal.foodme.layouts.shoppinglist.ShoppingItemFragment
 import com.example.skopal.foodme.layouts.shoppinglist.ShoppingList
 import com.example.skopal.foodme.services.KeyService
 import com.example.skopal.foodme.utils.inTransaction
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), GroceryFragment.OnListFragmentInteractionListener, RecipeFragment.OnListFragmentInteractionListener {
+class MainActivity : AppCompatActivity(),
+        GroceryFragment.OnListFragmentInteractionListener,
+        RecipeFragment.OnListFragmentInteractionListener,
+        ShoppingItemFragment.OnListFragmentInteractionListener {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -75,6 +80,13 @@ class MainActivity : AppCompatActivity(), GroceryFragment.OnListFragmentInteract
         //TODO("not implemented click on items in grocery list")
         //To change body of created functions use File | Settings | File Templates.
     }
+    /**
+     * [ShoppingItemFragment.OnListFragmentInteractionListener]
+     */
+    override fun onListFragmentInteraction(item: ShoppingItem?) {
+        //TODO("not implemented click on items in shopping list")
+        //To change body of created functions use File | Settings | File Templates.
+    }
 
 
     /*
@@ -115,6 +127,10 @@ class MainActivity : AppCompatActivity(), GroceryFragment.OnListFragmentInteract
      */
     fun changeScreen(fragment: Fragment, frameId: Int, addToStack: Boolean = false) {
         replaceFragment(fragment, frameId, addToStack)
+    }
+
+    fun addScreen(fragment: Fragment, frameId: Int) {
+        addFragment(fragment, frameId)
     }
 
     fun <T> changeActivity(activity: Class<T>) {

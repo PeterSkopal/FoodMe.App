@@ -1,6 +1,5 @@
 package com.example.skopal.foodme.layouts.shoppinglist
 
-
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -15,7 +14,11 @@ class ShoppingList : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         (activity as MainActivity).setActionBarTitle(getString(R.string.title_shopping_list))
-        return inflater.inflate(R.layout.fragment_shopping_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_shopping_list, container, false)
+
+        (activity as MainActivity).addScreen(ShoppingItemFragment(), R.id.shopping_list_frame)
+
+        return view
     }
 
 }
