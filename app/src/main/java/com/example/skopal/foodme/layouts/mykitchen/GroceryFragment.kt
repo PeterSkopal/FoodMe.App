@@ -14,8 +14,6 @@ import com.example.skopal.foodme.MainActivity
 import com.example.skopal.foodme.R
 import com.example.skopal.foodme.classes.GroceryItem
 import com.example.skopal.foodme.services.FoodMeApiGrocery
-import com.google.gson.Gson
-import com.google.gson.JsonArray
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.GlobalScope
 import kotlinx.coroutines.experimental.launch
@@ -30,7 +28,6 @@ class GroceryFragment : Fragment() {
 
     private var columnCount = 1
     private var listener: OnListFragmentInteractionListener? = null
-    private var gson = Gson()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -48,11 +45,7 @@ class GroceryFragment : Fragment() {
 
                 FoodMeApiGrocery(baseContext).getGroceries{ res ->
                     GlobalScope.launch(Dispatchers.Main) {
-                        var arr = mutableListOf<GroceryItem>()
-                        for (item in gson.fromJson(res, JsonArray::class.java)) {
-                            arr.add(gson.fromJson(item, GroceryItem::class.java))
-                        }
-                        adapter = MyGroceryRecyclerViewAdapter(arr, listener)
+                        adapter = MyGroceryRecyclerViewAdapter(res, listener)
                     }
                 }
                 val itemDecor = DividerItemDecoration(context, resources.configuration.orientation)

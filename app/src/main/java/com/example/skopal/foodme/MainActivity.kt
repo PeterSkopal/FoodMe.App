@@ -80,14 +80,6 @@ class MainActivity : AppCompatActivity(),
         //TODO("not implemented click on items in grocery list")
         //To change body of created functions use File | Settings | File Templates.
     }
-    /**
-     * [ShoppingItemFragment.OnListFragmentInteractionListener]
-     */
-    override fun onListFragmentInteraction(item: ShoppingItem?) {
-        //TODO("not implemented click on items in shopping list")
-        //To change body of created functions use File | Settings | File Templates.
-    }
-
 
     /*
      * Private Utils

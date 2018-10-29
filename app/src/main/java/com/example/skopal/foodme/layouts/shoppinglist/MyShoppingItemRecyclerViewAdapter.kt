@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import com.example.skopal.foodme.R
-import com.example.skopal.foodme.classes.ShoppingItem
+import com.example.skopal.foodme.classes.GroceryItem
 import com.example.skopal.foodme.layouts.shoppinglist.ShoppingItemFragment.OnListFragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_shoppingitem.view.*
 
 /**
- * [RecyclerView.Adapter] that can display a [ShoppingItem] and makes a call to the
+ * [RecyclerView.Adapter] that can display a [GroceryItem] and makes a call to the
  * specified [OnListFragmentInteractionListener].
  */
 class MyShoppingItemRecyclerViewAdapter(
-        private val mValues: MutableList<ShoppingItem>,
+        private val mValues: MutableList<GroceryItem>,
         private val mListener: OnListFragmentInteractionListener?)
     : RecyclerView.Adapter<MyShoppingItemRecyclerViewAdapter.ViewHolder>() {
 
@@ -24,7 +24,7 @@ class MyShoppingItemRecyclerViewAdapter(
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as ShoppingItem
+            val item = v.tag as GroceryItem
             // Notify the active callbacks interface (the activity, if the fragment is attached to
             // one) that an item has been selected.
             mListener?.onListFragmentInteraction(item)
