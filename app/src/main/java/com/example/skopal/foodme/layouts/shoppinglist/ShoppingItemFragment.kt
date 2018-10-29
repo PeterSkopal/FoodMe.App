@@ -12,10 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.skopal.foodme.MainActivity
 import com.example.skopal.foodme.R
-import com.example.skopal.foodme.classes.ShoppingItem
+import com.example.skopal.foodme.classes.GroceryItem
 import com.example.skopal.foodme.services.FoodMeApiGrocery
 import com.google.gson.Gson
-import com.google.gson.JsonArray
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.GlobalScope
 import kotlinx.coroutines.experimental.launch
@@ -48,11 +47,7 @@ class ShoppingItemFragment : Fragment() {
 
                 FoodMeApiGrocery(baseContext).getGroceries{ res ->
                     GlobalScope.launch(Dispatchers.Main) {
-                        val arr = mutableListOf<ShoppingItem>()
-                        for (item in gson.fromJson(res, JsonArray::class.java)) {
-                            arr.add(gson.fromJson(item, ShoppingItem::class.java))
-                        }
-                        adapter = MyShoppingItemRecyclerViewAdapter(arr, listener)
+                        adapter = MyShoppingItemRecyclerViewAdapter(res, listener)
                     }
                 }
                 val itemDecor = DividerItemDecoration(context, resources.configuration.orientation)
@@ -89,7 +84,7 @@ class ShoppingItemFragment : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: ShoppingItem?)
+        fun onListFragmentInteraction(item: GroceryItem?)
     }
 
 }

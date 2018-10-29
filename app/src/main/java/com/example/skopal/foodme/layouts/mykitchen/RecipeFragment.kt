@@ -12,9 +12,8 @@ import android.view.ViewGroup
 import com.example.skopal.foodme.MainActivity
 import com.example.skopal.foodme.R
 import com.example.skopal.foodme.classes.RecipeItem
+import com.example.skopal.foodme.services.FoodMeApiGrocery
 import com.example.skopal.foodme.services.SpoonacularApi
-import com.google.gson.Gson
-import com.google.gson.JsonArray
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.GlobalScope
 import kotlinx.coroutines.experimental.launch
@@ -26,10 +25,8 @@ import kotlinx.coroutines.experimental.launch
  */
 class RecipeFragment : Fragment() {
 
-    // TODO: Customize parameters
     private var columnCount = 1
     private var listener: OnListFragmentInteractionListener? = null
-    private var gson = Gson()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,14 +50,12 @@ class RecipeFragment : Fragment() {
 
                 val baseContext = (activity as MainActivity).baseContext
 
-                SpoonacularApi(baseContext).getRecipeSearch("lemons,tagliatelle,lettuce,kidney beans,radishes")
-                { res ->
-                    GlobalScope.launch(Dispatchers.Main) {
-                        var arr = mutableListOf<RecipeItem>()
-                        for (item in gson.fromJson(res, JsonArray::class.java)) {
-                            arr.add(gson.fromJson(item, RecipeItem::class.java))
+                FoodMeApiGrocery(baseContext).getGroceries { groceries ->
+                    SpoonacularApi(baseContext).getRecipeSearch(groceries.joinToString { it.name })
+                    { res ->
+                        GlobalScope.launch(Dispatchers.Main) {
+                            adapter = MyRecipeRecyclerViewAdapter(res, listener)
                         }
-                        adapter = MyRecipeRecyclerViewAdapter(arr, listener)
                     }
                 }
             }
