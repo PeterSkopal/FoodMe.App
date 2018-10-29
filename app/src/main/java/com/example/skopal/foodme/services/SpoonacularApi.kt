@@ -1,6 +1,7 @@
 package com.example.skopal.foodme.services
 
 import android.content.Context
+import com.example.skopal.foodme.classes.RecipeInformation
 import com.example.skopal.foodme.classes.RecipeItem
 import com.google.gson.Gson
 import com.google.gson.JsonArray
@@ -16,6 +17,12 @@ private class SpoonacularApiConstants {
         val KEY = "X-Mashape-Key"
         @JvmStatic
         val HOST = "X-Mashape-Host"
+
+        @JvmStatic
+        fun spoonacularHeader(key: String, host: String) = mapOf(
+                SpoonacularApiConstants.KEY to key,
+                SpoonacularApiConstants.HOST to host
+        )
     }
 }
 
@@ -32,28 +39,48 @@ class SpoonacularApi(context: Context) {
         val host = context.resources.getIdentifier(
                 "spoonacular_mashape_host", "string", context.packageName
         )
-        if (key !== 0 && host !== 0) {
+        if (key != 0 && host != 0) {
             this.spoonacularKey = context.getString(key)
             this.spoonacularHost = context.getString(host)
         }
     }
 
+    /**
+     * Retrieving a recipe search based on ingredients in payload.
+     * Change to http://www.mocky.io/v2/5bd70a6c3500007707fd7ee0 to mock response.
+     */
     fun getRecipeSearch(payload: String, cb: (MutableList<RecipeItem>) -> Unit) {
         khttp.async.get(
-                "$baseUrl${SpoonacularApiConstants.RECIPES}/findByIngredients?number=5&ranking=1&ingredients=${URLEncoder.encode(payload, "UTF-8")}",
-                headers = mapOf(
-                        SpoonacularApiConstants.KEY to this.spoonacularKey,
-                        SpoonacularApiConstants.HOST to this.spoonacularHost
-                )
+                "$baseUrl${SpoonacularApiConstants.RECIPES}/findByIngredients" +
+                        "?number=5&ranking=1&ingredients=${URLEncoder.encode(payload, "UTF-8")}",
+                headers = SpoonacularApiConstants.spoonacularHeader(this.spoonacularKey, this.spoonacularHost)
         ) {
-            if (statusCode !== 200) {
+            if (statusCode != 200) {
                 cb(mutableListOf())
             } else {
-                var arr = mutableListOf<RecipeItem>()
+                val arr = mutableListOf<RecipeItem>()
                 for (item in gson.fromJson(text, JsonArray::class.java)) {
                     arr.add(gson.fromJson(item, RecipeItem::class.java))
                 }
                 cb(arr)
+            }
+        }
+    }
+
+    /**
+     * Retrieving recipe information based on id
+     * Change to http://www.mocky.io/v2/5bd709d5350000f51cfd7ed9 to mock response.
+     */
+    fun getRecipe(id: Int, cb: (RecipeInformation?) -> Unit) {
+        khttp.async.get(
+                "$baseUrl${SpoonacularApiConstants.RECIPES}/$id/information",
+                headers = SpoonacularApiConstants.spoonacularHeader(this.spoonacularKey, this.spoonacularHost)
+        ) {
+            if (statusCode != 200) {
+                cb(null)
+            } else {
+                val obj = gson.fromJson(text, RecipeInformation::class.java)
+                cb(obj)
             }
         }
     }
