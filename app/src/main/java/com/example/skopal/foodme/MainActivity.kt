@@ -7,13 +7,13 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.example.skopal.foodme.classes.GroceryItem
+import com.example.skopal.foodme.classes.RecipeItem
 import com.example.skopal.foodme.classes.ShoppingItem
 import com.example.skopal.foodme.constants.SecureKey
 import com.example.skopal.foodme.layouts.footprint.Footprint
 import com.example.skopal.foodme.layouts.mykitchen.GroceryFragment
 import com.example.skopal.foodme.layouts.mykitchen.MyKitchen
 import com.example.skopal.foodme.layouts.mykitchen.RecipeFragment
-import com.example.skopal.foodme.layouts.mykitchen.dummy.DummyContent
 import com.example.skopal.foodme.layouts.scanner.Scanner
 import com.example.skopal.foodme.layouts.settings.Settings
 import com.example.skopal.foodme.layouts.shoppinglist.ShoppingItemFragment
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity(),
     /*
      * Callback function from My Groceries Fragment in 'My Kitchen'
      */
-    override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
+    override fun onListFragmentInteraction(item: RecipeItem?) {
         //TODO("not implemented click on items in grocery list")
         //To change body of created functions use File | Settings | File Templates.
     }

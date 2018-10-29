@@ -17,27 +17,11 @@
 
         <ImageView
             android:id="@+id/card_view_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/app_name"
-            android:scaleType="centerCrop"
-            android:visibility="visible"
-            app:srcCompat="@drawable/card_my_groceries_low" />
-
-        <!--
-        <TextView
-            android:id="@+id/card_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/cardview_margin"
-            android:layout_marginEnd="@dimen/cardview_margin"
-            android:layout_marginBottom="@dimen/cardview_margin"
-            android:gravity="bottom|end"
-            android:text="@string/title_groceries"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/title_size"
-            android:textStyle="bold" />
-            -->
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            android:visibility="visible" />
 
         <RelativeLayout
             android:layout_width="fill_parent"
