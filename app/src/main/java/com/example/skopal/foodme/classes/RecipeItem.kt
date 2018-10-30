@@ -2,6 +2,10 @@ package com.example.skopal.foodme.classes
 
 import com.google.gson.annotations.SerializedName
 
+data class RecipeList(
+        @SerializedName("results") val results: List<RecipeItem>
+)
+
 data class RecipeItem(
         @SerializedName("id") val id: Int,
         @SerializedName("title") val title: String,
