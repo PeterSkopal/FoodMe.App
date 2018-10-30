@@ -3,6 +3,7 @@ package com.example.skopal.foodme.services
 import android.content.Context
 import com.example.skopal.foodme.classes.RecipeInformation
 import com.example.skopal.foodme.classes.RecipeItem
+import com.example.skopal.foodme.classes.RecipeList
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import java.net.URLEncoder
@@ -17,6 +18,8 @@ private class SpoonacularApiConstants {
         val KEY = "X-Mashape-Key"
         @JvmStatic
         val HOST = "X-Mashape-Host"
+        @JvmStatic
+        val MINIMIZE_MISSING_INGREDIENTS = 0
 
         @JvmStatic
         fun spoonacularHeader(key: String, host: String) = mapOf(
@@ -47,22 +50,25 @@ class SpoonacularApi(context: Context) {
 
     /**
      * Retrieving a recipe search based on ingredients in payload.
-     * Change to http://www.mocky.io/v2/5bd70a6c3500007707fd7ee0 to mock response.
+     * Change to http://www.mocky.io/v2/5bd8050f310000f00b474b93 to mock response.
      */
-    fun getRecipeSearch(payload: String, cb: (MutableList<RecipeItem>) -> Unit) {
+    fun getRecipeSearch(ingredients: String, cb: (List<RecipeItem>) -> Unit) {
         khttp.async.get(
-                "$baseUrl${SpoonacularApiConstants.RECIPES}/findByIngredients" +
-                        "?number=5&ranking=1&ingredients=${URLEncoder.encode(payload, "UTF-8")}",
+                "$baseUrl${SpoonacularApiConstants.RECIPES}/searchComplex?" +
+                        "number=20" +
+                        "&ranking=${SpoonacularApiConstants.MINIMIZE_MISSING_INGREDIENTS}" +
+                        "&includeIngredients=${URLEncoder.encode(ingredients, "UTF-8")}" +
+                        "&type=${URLEncoder.encode("main course", "UTF-8")}" +
+                        "&diet=${URLEncoder.encode("vegetarian", "UTF-8")}" +
+                        "&intolerances=${URLEncoder.encode("peanut", "UTF-8")}" +
+                        "&instructionsRequired=true",
                 headers = SpoonacularApiConstants.spoonacularHeader(this.spoonacularKey, this.spoonacularHost)
         ) {
             if (statusCode != 200) {
-                cb(mutableListOf())
+                cb(listOf())
             } else {
-                val arr = mutableListOf<RecipeItem>()
-                for (item in gson.fromJson(text, JsonArray::class.java)) {
-                    arr.add(gson.fromJson(item, RecipeItem::class.java))
-                }
-                cb(arr)
+                val obj = gson.fromJson(text, RecipeList::class.java)
+                cb(obj.results)
             }
         }
     }
