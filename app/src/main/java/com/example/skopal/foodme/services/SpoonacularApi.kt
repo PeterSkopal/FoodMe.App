@@ -66,7 +66,8 @@ class SpoonacularApi(context: Context) {
         if (intolerance !== null) url += "&intolerances=${URLEncoder.encode(intolerance, "UTF-8")}"
 
         khttp.async.get(
-                url, headers = SpoonacularApiConstants.spoonacularHeader(this.spoonacularKey, this.spoonacularHost)
+                "http://www.mocky.io/v2/5bd8050f310000f00b474b93"
+                //url, headers = SpoonacularApiConstants.spoonacularHeader(this.spoonacularKey, this.spoonacularHost)
         ) {
             if (statusCode != 200) {
                 cb(listOf())
@@ -83,8 +84,9 @@ class SpoonacularApi(context: Context) {
      */
     fun getRecipe(id: Int, cb: (RecipeInformation?) -> Unit) {
         khttp.async.get(
-                "$baseUrl${SpoonacularApiConstants.RECIPES}/$id/information",
-                headers = SpoonacularApiConstants.spoonacularHeader(this.spoonacularKey, this.spoonacularHost)
+                "http://www.mocky.io/v2/5bd709d5350000f51cfd7ed9"
+                /*"$baseUrl${SpoonacularApiConstants.RECIPES}/$id/information",
+                headers = SpoonacularApiConstants.spoonacularHeader(this.spoonacularKey, this.spoonacularHost)*/
         ) {
             if (statusCode != 200) {
                 cb(null)
