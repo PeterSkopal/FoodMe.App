@@ -5,7 +5,6 @@ import com.example.skopal.foodme.classes.RecipeInformation
 import com.example.skopal.foodme.classes.RecipeItem
 import com.example.skopal.foodme.classes.RecipeList
 import com.google.gson.Gson
-import com.google.gson.JsonArray
 import java.net.URLEncoder
 
 private class SpoonacularApiConstants {
@@ -52,17 +51,22 @@ class SpoonacularApi(context: Context) {
      * Retrieving a recipe search based on ingredients in payload.
      * Change to http://www.mocky.io/v2/5bd8050f310000f00b474b93 to mock response.
      */
-    fun getRecipeSearch(ingredients: String, cb: (List<RecipeItem>) -> Unit) {
+    fun getRecipeSearch(ingredients: String,
+                        preference: String?,
+                        intolerance: String?,
+                        cb: (List<RecipeItem>) -> Unit) {
+
+        var url = "$baseUrl${SpoonacularApiConstants.RECIPES}/searchComplex?" +
+                "number=30" +
+                "&ranking=${SpoonacularApiConstants.MINIMIZE_MISSING_INGREDIENTS}" +
+                "&includeIngredients=${URLEncoder.encode(ingredients, "UTF-8")}" +
+                "&type=${URLEncoder.encode("main course", "UTF-8")}" +
+                "&instructionsRequired=true"
+        if (preference !== null) url += "&diet=${URLEncoder.encode(preference, "UTF-8")}"
+        if (intolerance !== null) url += "&intolerances=${URLEncoder.encode(intolerance, "UTF-8")}"
+
         khttp.async.get(
-                "$baseUrl${SpoonacularApiConstants.RECIPES}/searchComplex?" +
-                        "number=20" +
-                        "&ranking=${SpoonacularApiConstants.MINIMIZE_MISSING_INGREDIENTS}" +
-                        "&includeIngredients=${URLEncoder.encode(ingredients, "UTF-8")}" +
-                        "&type=${URLEncoder.encode("main course", "UTF-8")}" +
-                        "&diet=${URLEncoder.encode("vegetarian", "UTF-8")}" +
-                        "&intolerances=${URLEncoder.encode("peanut", "UTF-8")}" +
-                        "&instructionsRequired=true",
-                headers = SpoonacularApiConstants.spoonacularHeader(this.spoonacularKey, this.spoonacularHost)
+                url, headers = SpoonacularApiConstants.spoonacularHeader(this.spoonacularKey, this.spoonacularHost)
         ) {
             if (statusCode != 200) {
                 cb(listOf())

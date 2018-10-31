@@ -3,6 +3,7 @@ package com.example.skopal.foodme.layouts.mykitchen
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.preference.PreferenceManager
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -41,9 +42,19 @@ class RecipeFragment : Fragment() {
                 }
 
                 val baseContext = (activity as MainActivity).baseContext
+                val prefs = PreferenceManager.getDefaultSharedPreferences(baseContext)
+
+                var intolerance: String? = null
+                val foodPreference = prefs.getString(getString(R.string.food_preference_key), null)
+                val foodIntolerance = prefs.getStringSet(getString(R.string.food_intolerance_key), null)
+                if (foodIntolerance !== null) {
+                    intolerance = foodIntolerance.toString().replace(Regex("^.|.$"), "")
+                }
 
                 FoodMeApiGrocery(baseContext).getGroceries { groceries ->
-                    SpoonacularApi(baseContext).getRecipeSearch(groceries.joinToString { it.name })
+                    SpoonacularApi(baseContext).getRecipeSearch(
+                            groceries.joinToString { it.name },
+                            foodPreference, intolerance)
                     { res ->
                         GlobalScope.launch(Dispatchers.Main) {
                             adapter = MyRecipeRecyclerViewAdapter(res, listener)
