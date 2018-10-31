@@ -10,14 +10,12 @@
         android:id="@+id/chart_footprint"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_marginBottom="@dimen/navigation_bar_height"
         />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical|center_horizontal"
-        android:layout_marginBottom="@dimen/navigation_bar_height">
+        android:gravity="center_vertical|center_horizontal">
 
         <ProgressBar
             android:id="@+id/progress_bar"
