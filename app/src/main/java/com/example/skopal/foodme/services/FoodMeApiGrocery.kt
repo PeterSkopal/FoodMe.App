@@ -6,27 +6,23 @@ import com.example.skopal.foodme.constants.FoodMeApiConstants
 import com.example.skopal.foodme.constants.SecureKey
 import com.example.skopal.foodme.constants.TokenHeader
 import com.google.gson.Gson
-import com.google.gson.JsonArray
 
-class FoodMeApiGrocery {
+class FoodMeApiGrocery(context: Context) {
     private val baseUrl = "${FoodMeApiConstants.BASE_URL}${FoodMeApiConstants.GROCERY}"
     private val token: String
     private val gson = Gson()
 
-    constructor(context: Context) {
-        var keyService = KeyService(context)
+    init {
+        val keyService = KeyService(context)
         this.token = keyService.getKey(SecureKey.USER_TOKEN)!!
     }
 
     fun getGroceries(cb: (MutableList<GroceryItem>) -> Unit) {
         khttp.async.get(baseUrl, headers = TokenHeader.tokenHeader(this.token)) {
-            if (statusCode !== 200) {
+            if (statusCode != 200) {
                 cb(mutableListOf())
             } else {
-                var arr = mutableListOf<GroceryItem>()
-                for (item in gson.fromJson(text, JsonArray::class.java)) {
-                    arr.add(gson.fromJson(item, GroceryItem::class.java))
-                }
+                val arr = gson.fromJson(text, Array<GroceryItem>::class.java).toMutableList()
                 cb(arr)
             }
         }
