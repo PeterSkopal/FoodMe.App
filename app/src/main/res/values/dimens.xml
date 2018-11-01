@@ -12,4 +12,6 @@
     <dimen name="navigation_bar_height">55dp</dimen>
     <dimen name="navigation_bar_margin">60dp</dimen>
     <dimen name="text_margin">12dp</dimen>
+
+    <dimen name="ic_clear_margin">16dp</dimen>
 </resources>
