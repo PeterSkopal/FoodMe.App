@@ -5,10 +5,18 @@
     android:layout_height="match_parent"
     tools:context=".layouts.scanner.Scanner">
 
-    <TextView
-        android:id="@+id/scanner_text"
+    <SurfaceView
+        android:id="@+id/scanner_surface_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/title_scanner" />
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/scanner_text_view"
+        android:text="No Text"
+        android:layout_alignParentBottom="true"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </FrameLayout>

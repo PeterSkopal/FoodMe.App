@@ -39,6 +39,7 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.github.AnyChart:AnyChart-Android:1.0.5"
     implementation "com.github.jkcclemens:khttp:master-SNAPSHOT"
+    implementation "com.google.android.gms:play-services-vision:9.8.0"
     implementation "com.google.code.gson:gson:2.8.5"
     implementation "com.scottyab:secure-preferences-lib:0.1.4"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.30.2"
