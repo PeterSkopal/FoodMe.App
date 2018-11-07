@@ -14,9 +14,8 @@ import com.example.skopal.foodme.MainActivity
 import com.example.skopal.foodme.R
 import com.example.skopal.foodme.classes.GroceryItem
 import com.example.skopal.foodme.services.FoodMeApiGrocery
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  * A fragment representing a list of Items.
@@ -44,7 +43,7 @@ class ShoppingItemFragment : Fragment() {
                 val baseContext = (activity as MainActivity).baseContext
 
                 FoodMeApiGrocery(baseContext).getGroceries{ res ->
-                    GlobalScope.launch(Dispatchers.Main) {
+                    GlobalScope.launch {
                         adapter = MyShoppingItemRecyclerViewAdapter(res, listener)
                     }
                 }

@@ -16,14 +16,13 @@ import com.example.skopal.foodme.MainActivity
 import com.example.skopal.foodme.R
 import com.example.skopal.foodme.classes.GroceryItem
 import com.example.skopal.foodme.services.FoodMeApiGrocery
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.launch
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.graphics.PorterDuff
 import android.support.v4.content.ContextCompat
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 /**
@@ -55,7 +54,7 @@ class GroceryFragment : Fragment() {
             }
 
             FoodMeApiGrocery(baseContext).getGroceries { res ->
-                GlobalScope.launch(Dispatchers.Main) {
+                GlobalScope.launch {
                     adapter = MyGroceryRecyclerViewAdapter(res, listener)
                 }
             }

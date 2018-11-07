@@ -12,9 +12,8 @@ import com.example.skopal.foodme.MainActivity
 import com.example.skopal.foodme.R
 import com.example.skopal.foodme.services.SpoonacularApi
 import com.example.skopal.foodme.utils.DownloadImageTask
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
@@ -46,7 +45,7 @@ class RecipeInstruction : Fragment() {
 
         val baseContext = (activity as MainActivity).baseContext
         SpoonacularApi(baseContext).getRecipe(recipeId) { res ->
-            GlobalScope.launch(Dispatchers.Main) {
+            GlobalScope.launch {
                 if (res !== null) {
                     ingredients.text = res.extendedIngredients.joinToString("\n") {
                                 "${Math.round(it.measures.metric.amount)} ${it.measures.metric.unitShort} ${it.name}"
