@@ -7,7 +7,7 @@ android {
     compileSdkVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         applicationId "com.example.skopal.foodme"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
@@ -38,8 +38,10 @@ dependencies {
     implementation "com.android.support:support-v4:${rootProject.ext.supportLibVersion}"
     implementation "com.android.support:recyclerview-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.github.AnyChart:AnyChart-Android:1.0.5"
+    implementation "com.github.florent37:camerafragment:1.0.9"
     implementation "com.github.jkcclemens:khttp:master-SNAPSHOT"
-    implementation "com.google.android.gms:play-services-vision:9.8.0"
+    implementation "com.github.kittinunf.fuel:fuel-android:1.16.0"
+    implementation "com.github.quickpermissions:quickpermissions-kotlin:0.3.0"
     implementation "com.google.code.gson:gson:2.8.5"
     implementation "com.scottyab:secure-preferences-lib:0.1.4"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.0"

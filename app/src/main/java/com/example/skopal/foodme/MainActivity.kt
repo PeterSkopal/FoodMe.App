@@ -1,5 +1,6 @@
 package com.example.skopal.foodme
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -20,13 +21,22 @@ import com.example.skopal.foodme.layouts.shoppinglist.ShoppingItemFragment
 import com.example.skopal.foodme.layouts.shoppinglist.ShoppingList
 import com.example.skopal.foodme.services.KeyService
 import com.example.skopal.foodme.utils.inTransaction
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
+import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.core.FuelError
+import com.github.kittinunf.fuel.core.Handler
+import com.github.kittinunf.fuel.core.Request
+import com.github.kittinunf.fuel.core.Response
+import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 
 
 class MainActivity : AppCompatActivity(),
         GroceryFragment.OnListFragmentInteractionListener,
         RecipeFragment.OnListFragmentInteractionListener,
         ShoppingItemFragment.OnListFragmentInteractionListener {
+
+    private val gson = Gson()
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -107,7 +117,11 @@ class MainActivity : AppCompatActivity(),
         supportActionBar?.setDisplayHomeAsUpEnabled(bool)
     }
 
-    private fun login() {
+    private fun login() = runWithPermissions(
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+    ) {
         val token = keyService.getKey(SecureKey.USER_TOKEN)
         val email = keyService.getKey(SecureKey.USER_MAIL)
 

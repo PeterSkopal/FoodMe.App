@@ -29,7 +29,7 @@ private class SpoonacularApiConstants {
 }
 
 class SpoonacularApi(context: Context) {
-    private val baseUrl = "${SpoonacularApiConstants.BASE_URL}"
+    private val baseUrl = SpoonacularApiConstants.BASE_URL
     private var spoonacularKey: String = ""
     private var spoonacularHost: String = ""
     private val gson = Gson()
