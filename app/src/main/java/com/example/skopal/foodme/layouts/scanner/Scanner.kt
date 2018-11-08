@@ -20,6 +20,7 @@ import com.example.skopal.foodme.services.ReceiptRecognitionApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 
 class Scanner : Fragment() {
@@ -41,54 +42,53 @@ class Scanner : Fragment() {
                         Manifest.permission.CAMERA
                 ) == PackageManager.PERMISSION_GRANTED) {
 
-            val cameraFragment = CameraFragment.newInstance(Configuration.Builder().build())
-            (activity as MainActivity).changeScreen(cameraFragment, R.id.scanner_frame)
+                val cameraFragment = CameraFragment.newInstance(Configuration.Builder().build())
+                (activity as MainActivity).changeScreen(cameraFragment, R.id.scanner_frame)
 
-            val button = view.findViewById<RecordButton>(R.id.take_photo_button)
-            val flash = view.findViewById<FlashSwitchView>(R.id.flash_switch_view)
+                val button = view.findViewById<RecordButton>(R.id.take_photo_button)
+                val flash = view.findViewById<FlashSwitchView>(R.id.flash_switch_view)
 
 
-            button.setRecordButtonListener {
+                button.setRecordButtonListener {
 
-                cameraFragment.takePhotoOrCaptureVideo(object : CameraFragmentResultListener {
-                    override fun onVideoRecorded(filePath: String) {}
-                    override fun onPhotoTaken(bytes: ByteArray, filePath: String) {
-                        val file = File(filePath)
+                    cameraFragment.takePhotoOrCaptureVideo(object : CameraFragmentResultListener {
+                        override fun onVideoRecorded(filePath: String) {}
+                        override fun onPhotoTaken(bytes: ByteArray, filePath: String) {
+                            val file = File(filePath)
 
-                        ReceiptRecognitionApi((activity as MainActivity).baseContext).parseReceipt(file) {
-                            GlobalScope.launch(Dispatchers.Main) {
-                                if (it !== null) {
-                                    println("response:\t$it")
+                            ReceiptRecognitionApi((activity as MainActivity).baseContext).parseReceipt(file) {
+                                GlobalScope.launch(Dispatchers.Main) {
+                                    if (it !== null) {
+                                        println("response:\t$it")
+                                    }
                                 }
                             }
                         }
+                    }, "/storage/emulated/0/FoodMe", "receipt")
+                }
+
+                flash.setOnClickListener { cameraFragment.toggleFlashMode() }
+
+                cameraFragment.setStateListener(object : CameraFragmentStateAdapter() {
+
+                    override fun onFlashAuto() {
+                        flash.displayFlashAuto()
                     }
-                }, "/storage/emulated/0/FoodMe", "file")
-            }
 
-            flash.setOnClickListener { cameraFragment.toggleFlashMode() }
+                    override fun onFlashOn() {
+                        flash.displayFlashOn()
+                    }
 
+                    override fun onFlashOff() {
+                        flash.displayFlashOff()
+                    }
 
-            cameraFragment.setStateListener(object : CameraFragmentStateAdapter() {
+                    override fun onCameraSetupForPhoto() {
+                        button.displayPhotoState()
+                        flash.visibility = View.VISIBLE
+                    }
 
-                override fun onFlashAuto() {
-                    flash.displayFlashAuto()
-                }
-
-                override fun onFlashOn() {
-                    flash.displayFlashOn()
-                }
-
-                override fun onFlashOff() {
-                    flash.displayFlashOff()
-                }
-
-                override fun onCameraSetupForPhoto() {
-                    button.displayPhotoState()
-                    flash.visibility = View.VISIBLE
-                }
-
-            })
+                })
 
         }
     }
