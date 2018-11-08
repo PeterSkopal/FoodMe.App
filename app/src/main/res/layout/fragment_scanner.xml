@@ -11,13 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:gravity="bottom"
-        android:layout_marginBottom="25dp">
+        android:layout_marginBottom="25dp"
+        android:gravity="bottom">
 
         <com.github.florent37.camerafragment.widgets.RecordButton
             android:id="@+id/take_photo_button"
