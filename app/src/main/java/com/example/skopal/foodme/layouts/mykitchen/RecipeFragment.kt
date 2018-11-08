@@ -15,6 +15,7 @@ import com.example.skopal.foodme.R
 import com.example.skopal.foodme.classes.RecipeItem
 import com.example.skopal.foodme.services.FoodMeApiGrocery
 import com.example.skopal.foodme.services.SpoonacularApi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -55,7 +56,7 @@ class RecipeFragment : Fragment() {
                             groceries.joinToString { it.name },
                             foodPreference, intolerance)
                     { res ->
-                        GlobalScope.launch {
+                        GlobalScope.launch(Dispatchers.Main) {
                             adapter = MyRecipeRecyclerViewAdapter(res, listener)
                         }
                     }
