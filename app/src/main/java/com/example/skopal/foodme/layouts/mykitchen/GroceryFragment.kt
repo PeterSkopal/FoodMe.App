@@ -21,8 +21,10 @@ import android.graphics.PorterDuff
 import android.support.v4.content.ContextCompat
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 /**
@@ -54,7 +56,7 @@ class GroceryFragment : Fragment() {
             }
 
             FoodMeApiGrocery(baseContext).getGroceries { res ->
-                GlobalScope.launch {
+                GlobalScope.launch(Dispatchers.Main) {
                     adapter = MyGroceryRecyclerViewAdapter(res, listener)
                 }
             }
