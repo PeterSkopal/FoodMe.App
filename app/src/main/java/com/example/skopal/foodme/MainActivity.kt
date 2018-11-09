@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(),
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_scanner -> {
-                replaceFragment(Scanner(), R.id.main_frame)
+                replaceFragment(Scanner.newInstance(), R.id.main_frame)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_footprint -> {
