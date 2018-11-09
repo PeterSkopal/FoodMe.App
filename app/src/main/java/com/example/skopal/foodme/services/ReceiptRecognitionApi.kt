@@ -1,6 +1,7 @@
 package com.example.skopal.foodme.services
 
 import android.content.Context
+import android.util.Log
 import com.example.skopal.foodme.classes.Receipt
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.android.extension.responseJson
@@ -20,6 +21,8 @@ private class TaggunConstants {
         )
     }
 }
+
+const val TAG = "ReceiptRecognitionAPI"
 
 class ReceiptRecognitionApi(context: Context) {
     private val baseUrl = TaggunConstants.BASE_URL
@@ -43,10 +46,11 @@ class ReceiptRecognitionApi(context: Context) {
                 .responseJson { _, _, result ->
                     result.fold(
                             success = { data ->
+                                Log.i(TAG, data.content)
                                 cb(gson.fromJson(data.content, Receipt::class.java))
                             },
                             failure = { error ->
-                                println("An error of type ${error.exception} happened: ${error.message}")
+                                Log.e(TAG, "An error of type ${error.exception} happened: ${error.message}")
                                 cb(null)
                             }
                     )

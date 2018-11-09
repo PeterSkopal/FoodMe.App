@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.example.skopal.foodme.classes.GroceryItem
+import com.example.skopal.foodme.classes.LineAmount
 import com.example.skopal.foodme.classes.RecipeItem
 import com.example.skopal.foodme.constants.SecureKey
 import com.example.skopal.foodme.layouts.footprint.Footprint
@@ -15,6 +16,7 @@ import com.example.skopal.foodme.layouts.mykitchen.GroceryFragment
 import com.example.skopal.foodme.layouts.mykitchen.MyKitchen
 import com.example.skopal.foodme.layouts.mykitchen.RecipeFragment
 import com.example.skopal.foodme.layouts.mykitchen.RecipeInstruction
+import com.example.skopal.foodme.layouts.scanner.ReceiptVerificationFragment
 import com.example.skopal.foodme.layouts.scanner.Scanner
 import com.example.skopal.foodme.layouts.settings.Settings
 import com.example.skopal.foodme.layouts.shoppinglist.ShoppingItemFragment
@@ -28,7 +30,8 @@ import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 class MainActivity : AppCompatActivity(),
         GroceryFragment.OnListFragmentInteractionListener,
         RecipeFragment.OnListFragmentInteractionListener,
-        ShoppingItemFragment.OnListFragmentInteractionListener {
+        ShoppingItemFragment.OnListFragmentInteractionListener,
+        ReceiptVerificationFragment.OnListFragmentInteractionListener {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -85,6 +88,10 @@ class MainActivity : AppCompatActivity(),
         //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun onListFragmentInteraction(item: LineAmount?) {
+        //TODO("not implemented click on items in receipt item verification list")
+        //To change body of created functions use File | Settings | File Templates.
+    }
     /*
      * Private Utils
      */
