@@ -24,8 +24,6 @@ import android.graphics.drawable.Drawable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-
 
 /**
  * A fragment representing a list of Items.

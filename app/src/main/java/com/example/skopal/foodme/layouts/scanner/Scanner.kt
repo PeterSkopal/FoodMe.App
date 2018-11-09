@@ -32,6 +32,9 @@ import android.view.ViewGroup
 import com.example.skopal.foodme.MainActivity
 import com.example.skopal.foodme.R
 import com.example.skopal.foodme.utils.showToast
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.File
 import java.util.Arrays
 import java.util.Collections
@@ -614,7 +617,7 @@ class Scanner : Fragment(), View.OnClickListener,
                 set(CaptureRequest.JPEG_ORIENTATION,
                         (ORIENTATIONS.get(rotation) + sensorOrientation + 270) % 360)
 
-                // Use the same AE and AF modes as the preview.
+                // Use the same AE and AF modes as the preview
                 set(CaptureRequest.CONTROL_AF_MODE,
                         CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
             }?.also { setAutoFlash(it) }
@@ -626,9 +629,14 @@ class Scanner : Fragment(), View.OnClickListener,
                 override fun onCaptureCompleted(session: CameraCaptureSession,
                                                 request: CaptureRequest,
                                                 result: TotalCaptureResult) {
+
                     (activity as MainActivity).showToast("Saved: $file")
-                    Log.d(TAG, file.toString())
-                    unlockFocus()
+                    GlobalScope.launch(Dispatchers.Main) {
+                        (activity as MainActivity).changeScreen(
+                                ReceiptVerificationFragment.newInstance(file),
+                                R.id.main_frame, true
+                        )
+                    }
                 }
             }
 
@@ -636,7 +644,7 @@ class Scanner : Fragment(), View.OnClickListener,
                 stopRepeating()
                 abortCaptures()
                 Thread.sleep(50) // sleeping due to HuaWei problems, ugly fix
-                capture(captureBuilder?.build(), captureCallback, null)
+                capture(captureBuilder!!.build(), captureCallback, null)
             }
         } catch (e: CameraAccessException) {
             Log.e(TAG, e.toString())
