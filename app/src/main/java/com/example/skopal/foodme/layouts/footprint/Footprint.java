@@ -57,7 +57,7 @@ public class Footprint extends Fragment {
         this.vegetableColor = "#" + Integer.toHexString(getResources().getColor(R.color.colorChartVegetables)).substring(2, 8);
 
         AnyChartView anyChartView = view.findViewById(R.id.chart_footprint);
-        anyChartView.setProgressBar(view.findViewById(R.id.progress_bar));
+        anyChartView.setProgressBar(view.findViewById(R.id.loading_spinner));
 
         Cartesian areaChart = AnyChart.area();
         areaChart.title(getString(R.string.title_footprint));

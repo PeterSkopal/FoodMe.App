@@ -49,9 +49,12 @@ class ReceiptVerificationFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
 
+                (activity as MainActivity).showSpinner()
                 ReceiptRecognitionApi((activity as MainActivity).baseContext).parseReceipt(File(filePath)) { receipt ->
                     if (receipt !== null) {
                         GlobalScope.launch(Dispatchers.Main) {
+
+                            (activity as MainActivity).hideSpinner()
                             adapter = MyReceiptVerificationRecyclerViewAdapter(receipt.lineAmounts, listener)
                         }
                     }

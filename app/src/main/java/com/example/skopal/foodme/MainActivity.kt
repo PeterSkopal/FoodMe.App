@@ -7,6 +7,9 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.widget.ProgressBar
 import com.example.skopal.foodme.classes.GroceryItem
 import com.example.skopal.foodme.classes.LineAmount
 import com.example.skopal.foodme.classes.RecipeItem
@@ -60,6 +63,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     private lateinit var keyService: KeyService
+    private lateinit var spinner: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +72,7 @@ class MainActivity : AppCompatActivity(),
         login()
 
         setContentView(R.layout.activity_main)
+        spinner = findViewById(R.id.loading_spinner)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId = R.id.navigation_my_kitchen
@@ -154,6 +159,13 @@ class MainActivity : AppCompatActivity(),
         keyService.removeKey(SecureKey.USER_MAIL)
     }
 
+    fun showSpinner() {
+        spinner.visibility = VISIBLE
+    }
+
+    fun hideSpinner() {
+        spinner.visibility = GONE
+    }
 
     /**
      * Pops the back stack when user presses back button in the Application Action Bar

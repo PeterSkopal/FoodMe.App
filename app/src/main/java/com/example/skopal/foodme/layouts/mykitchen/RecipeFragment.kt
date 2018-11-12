@@ -51,12 +51,15 @@ class RecipeFragment : Fragment() {
                     intolerance = foodIntolerance.toString().replace(Regex("^.|.$"), "")
                 }
 
+                (activity as MainActivity).showSpinner()
                 FoodMeApiGrocery(baseContext).getGroceries { groceries ->
                     SpoonacularApi(baseContext).getRecipeSearch(
                             groceries.joinToString { it.name },
                             foodPreference, intolerance)
                     { res ->
                         GlobalScope.launch(Dispatchers.Main) {
+
+                            (activity as MainActivity).hideSpinner()
                             adapter = MyRecipeRecyclerViewAdapter(res, listener)
                         }
                     }
