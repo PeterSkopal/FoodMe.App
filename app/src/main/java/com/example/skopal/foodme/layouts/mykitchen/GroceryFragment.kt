@@ -53,8 +53,11 @@ class GroceryFragment : Fragment() {
                 else -> GridLayoutManager(context, columnCount)
             }
 
+            (activity as MainActivity).showSpinner()
             FoodMeApiGrocery(baseContext).getGroceries { res ->
                 GlobalScope.launch(Dispatchers.Main) {
+
+                    (activity as MainActivity).hideSpinner()
                     adapter = MyGroceryRecyclerViewAdapter(res, listener)
                 }
             }

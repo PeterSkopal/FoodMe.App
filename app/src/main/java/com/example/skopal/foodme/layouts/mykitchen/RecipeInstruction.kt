@@ -45,9 +45,13 @@ class RecipeInstruction : Fragment() {
         val instructions = view.findViewById<TextView>(R.id.recipe_instruction_instructions)
 
         val baseContext = (activity as MainActivity).baseContext
+
+        (activity as MainActivity).showSpinner()
         SpoonacularApi(baseContext).getRecipe(recipeId) { res ->
             GlobalScope.launch(Dispatchers.Main) {
                 if (res !== null) {
+
+                    (activity as MainActivity).hideSpinner()
                     ingredients.text = res.extendedIngredients.joinToString("\n") {
                                 "${Math.round(it.measures.metric.amount)} ${it.measures.metric.unitShort} ${it.name}"
                             }

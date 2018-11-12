@@ -43,8 +43,11 @@ class ShoppingItemFragment : Fragment() {
 
                 val baseContext = (activity as MainActivity).baseContext
 
+                (activity as MainActivity).showSpinner()
                 FoodMeApiGrocery(baseContext).getGroceries{ res ->
                     GlobalScope.launch(Dispatchers.Main) {
+
+                        (activity as MainActivity).hideSpinner()
                         adapter = MyShoppingItemRecyclerViewAdapter(res, listener)
                     }
                 }
