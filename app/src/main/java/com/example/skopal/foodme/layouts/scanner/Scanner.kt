@@ -326,7 +326,7 @@ class Scanner : Fragment(), View.OnClickListener,
                 // coordinate.
                 val displayRotation = (activity as MainActivity).windowManager.defaultDisplay.rotation
 
-                sensorOrientation = characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION)
+                sensorOrientation = characteristics.get(CameraCharacteristics.SENSOR_ORIENTATION)!!
                 val swappedDimensions = areDimensionsSwapped(displayRotation)
 
                 val displaySize = Point()
@@ -608,7 +608,7 @@ class Scanner : Fragment(), View.OnClickListener,
             // This is the CaptureRequest.Builder that we use to take a picture.
             val captureBuilder = cameraDevice?.createCaptureRequest(
                     CameraDevice.TEMPLATE_STILL_CAPTURE)?.apply {
-                addTarget(imageReader?.surface)
+                addTarget(imageReader?.surface!!)
 
                 // Sensor orientation is 90 for most devices, or 270 for some devices (eg. Nexus 5X)
                 // We have to take that into account and rotate JPEG properly.
@@ -656,7 +656,7 @@ class Scanner : Fragment(), View.OnClickListener,
     /**
      * Unlock the focus. This method should be called when still image capture sequence is
      * finished.
-     */
+
     private fun unlockFocus() {
         try {
             // Reset the auto-focus trigger
@@ -673,7 +673,7 @@ class Scanner : Fragment(), View.OnClickListener,
             Log.e(TAG, e.toString())
         }
 
-    }
+    }*/
 
     override fun onClick(view: View) {
         when (view.id) {

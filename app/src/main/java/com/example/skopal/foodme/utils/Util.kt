@@ -7,8 +7,8 @@ import android.widget.ImageView
 import java.text.SimpleDateFormat
 import java.util.*
 
-inline fun dateToSimpleString(date: Date) : String {
-    val format = SimpleDateFormat("dd/MM/yyy")
+fun dateToSimpleString(date: Date) : String {
+    val format = SimpleDateFormat("dd/MM/yyy", Locale.ENGLISH)
     return format.format(date)
 }
 

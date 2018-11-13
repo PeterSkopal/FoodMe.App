@@ -1,8 +1,9 @@
 package com.example.skopal.foodme.layouts.footprint;
 
-import android.graphics.Color;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,15 +47,22 @@ public class Footprint extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_footprint, container, false);
-        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.title_footprint));
+
+        MainActivity activity = ((MainActivity) getActivity());
+        if (activity != null) {
+            activity.setActionBarTitle(getString(R.string.title_footprint));
+        }
 
 
-        this.backgroundColor = "#" + Integer.toHexString(getResources().getColor(R.color.backgroundColor)).substring(2, 8);
-        this.colorWhite = "#" + Integer.toHexString(getResources().getColor(R.color.colorWhite)).substring(2, 8);
-        this.meatColor = "#" + Integer.toHexString(getResources().getColor(R.color.colorChartMeat)).substring(2, 8);
-        this.fishColor = "#" + Integer.toHexString(getResources().getColor(R.color.colorChartFish)).substring(2, 8);
-        this.dairyColor = "#" + Integer.toHexString(getResources().getColor(R.color.colorChartDairy)).substring(2, 8);
-        this.vegetableColor = "#" + Integer.toHexString(getResources().getColor(R.color.colorChartVegetables)).substring(2, 8);
+        Context context = getContext();
+        if (context != null) {
+            this.backgroundColor = "#" + Integer.toHexString(ContextCompat.getColor(context, R.color.backgroundColor)).substring(2, 8);
+            this.colorWhite = "#" + Integer.toHexString(ContextCompat.getColor(context, R.color.colorWhite)).substring(2, 8);
+            this.meatColor = "#" + Integer.toHexString(ContextCompat.getColor(context, R.color.colorChartMeat)).substring(2, 8);
+            this.fishColor = "#" + Integer.toHexString(ContextCompat.getColor(context, R.color.colorChartFish)).substring(2, 8);
+            this.dairyColor = "#" + Integer.toHexString(ContextCompat.getColor(context, R.color.colorChartDairy)).substring(2, 8);
+            this.vegetableColor = "#" + Integer.toHexString(ContextCompat.getColor(context, R.color.colorChartVegetables)).substring(2, 8);
+        }
 
         AnyChartView anyChartView = view.findViewById(R.id.chart_footprint);
         anyChartView.setProgressBar(view.findViewById(R.id.loading_spinner));
