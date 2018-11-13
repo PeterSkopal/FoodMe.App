@@ -48,9 +48,9 @@ class MyShoppingItemRecyclerViewAdapter(
             checkBox.isChecked = checkBox.isSelected
             checkBox.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    val position = mValues.indexOf(item)
-                    mValues.removeAt(position)
-                    notifyItemRemoved(position)
+                    val index = mValues.indexOf(item)
+                    mValues.removeAt(index)
+                    notifyItemRemoved(index)
                 }
             }
 

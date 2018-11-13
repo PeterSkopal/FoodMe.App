@@ -30,7 +30,11 @@ class RecipeInstruction : Fragment() {
 
         arguments?.let {
             recipeId = it.getInt(RECIPE_ID)
-            imageUrl = it.getString(IMAGE_URL)
+
+            val url = it.getString(IMAGE_URL)
+            if (url != null) {
+                imageUrl = url
+            }
         }
     }
 
