@@ -40,7 +40,16 @@ class ReceiptRecognitionApi(context: Context) {
 
     fun parseReceipt(file: File, cb: (Receipt?) -> Unit) {
 
-        Fuel.upload(path = baseUrl, method = Method.POST)
+        khttp.async.post("http://www.mocky.io/v2/5beaae2c2f0000aa19da3bcf") {
+            if (statusCode != 200) {
+                cb(null)
+            } else {
+                val obj = gson.fromJson(text, Receipt::class.java)
+                cb(obj)
+            }
+        }
+
+        /*Fuel.upload(path = baseUrl, method = Method.POST)
                 .header(TaggunConstants.taggunHeader(taggunApiKey))
                 .dataParts { _, _ -> listOf(DataPart(file, "file", "image/jpeg")) }
                 .responseJson { _, _, result ->
@@ -54,7 +63,7 @@ class ReceiptRecognitionApi(context: Context) {
                                 cb(null)
                             }
                     )
-                }
+                }*/
 
     }
 }
