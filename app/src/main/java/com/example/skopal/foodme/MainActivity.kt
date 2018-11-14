@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(),
         ReceiptVerificationFragment.OnListFragmentInteractionListener {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        popStack() // popping all fragments on top of the bottom one.
         when (item.itemId) {
             R.id.navigation_my_kitchen -> {
                 replaceFragment(MyKitchen(), R.id.main_frame)
@@ -64,6 +65,7 @@ class MainActivity : AppCompatActivity(),
 
     private lateinit var keyService: KeyService
     private lateinit var spinner: ProgressBar
+    private var stackInitLevel: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +74,10 @@ class MainActivity : AppCompatActivity(),
         login()
 
         setContentView(R.layout.activity_main)
+
         spinner = findViewById(R.id.loading_spinner)
+
+        setUpBackStackListener()
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId = R.id.navigation_my_kitchen
@@ -171,8 +176,33 @@ class MainActivity : AppCompatActivity(),
      * Pops the back stack when user presses back button in the Application Action Bar
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        supportFragmentManager.popBackStack()
-        if (supportFragmentManager.backStackEntryCount <= 1) setBackArrowVisible(false)
+        if (supportFragmentManager.backStackEntryCount > stackInitLevel) {
+            supportFragmentManager.popBackStack()
+        }
         return true
     }
+
+    /**
+     * Sets the initial level on the back stack, as well as setting a listener on the back stack
+     * level, not displaying the back arrow in the top bar on the bottom level.
+     */
+    private fun setUpBackStackListener() {
+        stackInitLevel = supportFragmentManager.backStackEntryCount
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.backStackEntryCount == stackInitLevel) {
+                setBackArrowVisible(false)
+            }
+        }
+    }
+
+    /**
+     * Pops the stack above init stack level when clicking on any bottom navigation bar option.
+     */
+    private fun popStack() {
+        for (i in stackInitLevel until supportFragmentManager.backStackEntryCount) {
+            supportFragmentManager.popBackStack()
+        }
+    }
+
 }
