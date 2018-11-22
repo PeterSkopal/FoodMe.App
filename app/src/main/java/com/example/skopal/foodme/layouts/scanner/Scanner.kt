@@ -234,10 +234,12 @@ class Scanner : Fragment(), View.OnClickListener,
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_scanner, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+
+        (activity as MainActivity).setActionBarTitle(getString(R.string.title_scanner))
+        return inflater.inflate(R.layout.fragment_scanner, container, false)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.findViewById<View>(R.id.picture).setOnClickListener(this)
