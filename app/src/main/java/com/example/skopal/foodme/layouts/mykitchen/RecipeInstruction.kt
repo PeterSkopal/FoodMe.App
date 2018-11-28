@@ -54,7 +54,7 @@ class RecipeInstruction : Fragment() {
         SpoonacularApi(baseContext).getRecipe(recipeId) { res ->
             GlobalScope.launch(Dispatchers.Main) {
                 if (res !== null) {
-
+                    (activity as MainActivity).setActionBarTitle(res.title)
                     (activity as MainActivity).hideSpinner()
                     ingredients.text = res.extendedIngredients.joinToString("\n") {
                                 "${Math.round(it.measures.metric.amount)} ${it.measures.metric.unitShort} ${it.name}"
