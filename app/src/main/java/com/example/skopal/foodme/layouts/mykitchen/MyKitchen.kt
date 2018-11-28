@@ -28,7 +28,6 @@ class MyKitchen : Fragment() {
 
         val button = view.findViewById<Button>(R.id.generate_recipe_button)
         button.setOnClickListener {
-            (activity as MainActivity).setActionBarTitle(getString(R.string.title_recipes))
             (activity as MainActivity).changeScreen(RecipeFragment(), R.id.main_frame, true)
         }
 
