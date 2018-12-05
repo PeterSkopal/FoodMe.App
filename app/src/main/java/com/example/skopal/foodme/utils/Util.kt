@@ -6,6 +6,8 @@ import android.os.AsyncTask
 import android.widget.ImageView
 import java.text.SimpleDateFormat
 import java.util.*
+import android.os.Build
+import android.text.TextUtils.isEmpty
 
 fun dateToSimpleString(date: Date) : String {
     val format = SimpleDateFormat("dd/MM/yyy", Locale.ENGLISH)
@@ -32,5 +34,27 @@ class DownloadImageTask(var bmImage: ImageView) : AsyncTask<String, Void, Bitmap
 
     override fun onPostExecute(result: Bitmap) {
         bmImage.setImageBitmap(result)
+    }
+}
+
+fun getDeviceName(): String {
+    val manufacturer = Build.MANUFACTURER
+    val model = Build.MODEL
+    return if (model.toLowerCase().startsWith(manufacturer.toLowerCase())) {
+        capitalize(model)
+    } else {
+        capitalize(manufacturer) + " " + model
+    }
+}
+
+private fun capitalize(s: String?): String {
+    if (s == null || isEmpty(s)) {
+        return ""
+    }
+    val first = s[0]
+    return if (Character.isUpperCase(first)) {
+        s
+    } else {
+        Character.toUpperCase(first) + s.substring(1)
     }
 }
