@@ -31,6 +31,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.skopal.foodme.MainActivity
 import com.example.skopal.foodme.R
+import com.example.skopal.foodme.utils.getDeviceName
 import com.example.skopal.foodme.utils.showToast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -645,7 +646,9 @@ class Scanner : Fragment(), View.OnClickListener,
             captureSession?.apply {
                 stopRepeating()
                 abortCaptures()
-                Thread.sleep(50) // sleeping due to HuaWei problems, ugly fix
+                if (getDeviceName().contains("HUAWEI")) {
+                    Thread.sleep(50) // sleeping due to HuaWei bug, ugly fix
+                }
                 capture(captureBuilder!!.build(), captureCallback, null)
             }
         } catch (e: CameraAccessException) {
