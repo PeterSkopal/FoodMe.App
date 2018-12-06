@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import com.example.skopal.foodme.R
 import com.example.skopal.foodme.classes.LineAmount
@@ -43,9 +44,19 @@ class MyReceiptVerificationRecyclerViewAdapter(
         val item = mValues[position]
         holder.mItemDescription.text = item.description
         holder.mItemData.text = item.data.toString()
+        holder.mItemChecked.isSelected = item.include
 
         with(holder.mView) {
             tag = item
+
+            val checkBox = this.findViewById<CheckBox>(R.id.receipt_verification_item_checkbox)
+            checkBox.setOnCheckedChangeListener(null)
+            checkBox.isChecked = checkBox.isSelected
+            checkBox.setOnCheckedChangeListener { _, isChecked ->
+                val index = mValues.indexOf(item)
+                mValues[index].include = isChecked
+            }
+
             setOnClickListener(mOnClickListener)
         }
     }
@@ -55,6 +66,7 @@ class MyReceiptVerificationRecyclerViewAdapter(
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         val mItemDescription: TextView = mView.receipt_verification_item_description
         val mItemData: TextView = mView.receipt_verification_item_data
+        val mItemChecked: CheckBox = mView.receipt_verification_item_checkbox
 
         override fun toString(): String {
             return super.toString() + " '" + mItemDescription.text + "'"

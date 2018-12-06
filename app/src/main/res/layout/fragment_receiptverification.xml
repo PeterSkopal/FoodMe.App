@@ -4,22 +4,35 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/receipt_verification_item_description"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:layout_alignParentStart="true"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:layout_height="match_parent">
+
+        <CheckBox
+            android:id="@+id/receipt_verification_item_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/cardview_margin"/>
+
+        <TextView
+            android:id="@+id/receipt_verification_item_description"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/text_margin"
+            android:textAppearance="?attr/textAppearanceListItem" />
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/receipt_verification_item_data"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="@dimen/text_margin"
         android:gravity="end"
         android:layout_centerInParent="true"
         android:layout_alignParentEnd="true"
         android:textAppearance="?attr/textAppearanceListItem"
         android:textSize="10dp" />
+
 </RelativeLayout>

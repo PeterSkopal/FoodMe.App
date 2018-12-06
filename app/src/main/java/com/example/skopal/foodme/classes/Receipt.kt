@@ -12,8 +12,15 @@ data class LineAmount(
         @SerializedName("description") val description: String,
         @SerializedName("data") val data: Double,
         @SerializedName("index") val index: Number,
-        @SerializedName("text") val text: String
-)
+        @SerializedName("text") val text: String,
+        @SerializedName("include") private var _include: Boolean? = true
+) {
+    var include
+        get() = _include ?: true
+        set(value) {
+            _include = value
+        }
+}
 
 data class ReceiptDate(
         @SerializedName("data") val data: String,
