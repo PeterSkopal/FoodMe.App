@@ -14,6 +14,7 @@ import com.example.skopal.foodme.classes.GroceryItem
 import com.example.skopal.foodme.classes.LineAmount
 import com.example.skopal.foodme.classes.RecipeItem
 import com.example.skopal.foodme.constants.SecureKey
+import com.example.skopal.foodme.layouts.components.EditTextDialog
 import com.example.skopal.foodme.layouts.footprint.Footprint
 import com.example.skopal.foodme.layouts.mykitchen.GroceryFragment
 import com.example.skopal.foodme.layouts.mykitchen.MyKitchen
@@ -98,7 +99,22 @@ class MainActivity : AppCompatActivity(),
         //To change body of created functions use File | Settings | File Templates.
     }
 
+    /*
+     * Callback function from ReceiptVerification Fragment in 'Scanner'
+     */
     override fun onListFragmentInteraction(item: LineAmount?) {
+        if (item !== null) {
+            val dialog = EditTextDialog.newInstance(
+                    title = "Edit the Grocery Title",
+                    text = item.description,
+                    hint = "Grocery",
+                    isMultiline = false)
+            dialog.onOk = {
+                item.description = dialog.editText.text.toString()
+            }
+            dialog.show(supportFragmentManager, "editDescription")
+        }
+
         //TODO("not implemented click on items in receipt item verification list")
         //To change body of created functions use File | Settings | File Templates.
     }
