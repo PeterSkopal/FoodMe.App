@@ -9,7 +9,7 @@ data class Receipt(
 )
 
 data class LineAmount(
-        @SerializedName("description") val description: String,
+        @SerializedName("description") var description: String,
         @SerializedName("data") val data: Double,
         @SerializedName("index") val index: Number,
         @SerializedName("text") val text: String,

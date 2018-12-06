@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import com.example.skopal.foodme.MainActivity
 import com.example.skopal.foodme.R
 import com.example.skopal.foodme.classes.LineAmount
+import com.example.skopal.foodme.layouts.components.EditTextDialog
 
 
 import com.example.skopal.foodme.layouts.scanner.ReceiptVerificationFragment.OnListFragmentInteractionListener
@@ -30,7 +32,6 @@ class MyReceiptVerificationRecyclerViewAdapter(
             val item = v.tag as LineAmount
             // Notify the active callbacks interface (the activity, if the fragment is attached to
             // one) that an item has been selected.
-            mListener?.onListFragmentInteraction(item)
         }
     }
 
@@ -57,7 +58,13 @@ class MyReceiptVerificationRecyclerViewAdapter(
                 mValues[index].include = isChecked
             }
 
-            setOnClickListener(mOnClickListener)
+
+            //setOnClickListener(mOnClickListener)
+        }
+        with(holder.mItemDescription) {
+            setOnClickListener {
+                mListener?.onListFragmentInteraction(item)
+            }
         }
     }
 
