@@ -17,7 +17,7 @@ import com.example.skopal.foodme.constants.ButtonActionConstants
 import com.example.skopal.foodme.constants.SecureKey
 import com.example.skopal.foodme.layouts.components.EditTextDialog
 import com.example.skopal.foodme.layouts.footprint.Footprint
-import com.example.skopal.foodme.layouts.mykitchen.GroceryFragment
+import com.example.skopal.foodme.layouts.mykitchen.MyKitchen
 import com.example.skopal.foodme.layouts.mykitchen.RecipeFragment
 import com.example.skopal.foodme.layouts.mykitchen.RecipeInstruction
 import com.example.skopal.foodme.layouts.scanner.ReceiptVerificationFragment
@@ -36,7 +36,7 @@ import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity(),
-        GroceryFragment.OnListFragmentInteractionListener,
+        MyKitchen.OnListFragmentInteractionListener,
         RecipeFragment.OnListFragmentInteractionListener,
         ShoppingItemFragment.OnListFragmentInteractionListener,
         ReceiptVerificationFragment.OnListFragmentInteractionListener {
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(),
         popStack() // popping all fragments on top of the bottom one.
         when (item.itemId) {
             R.id.navigation_my_kitchen -> {
-                replaceFragment(GroceryFragment(), R.id.main_frame)
+                replaceFragment(MyKitchen(), R.id.main_frame)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_shopping_list -> {
@@ -99,7 +99,6 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onListFragmentInteraction(item: GroceryItem?, buttonCommand: String?) {
-        println("hejhej\t$buttonCommand")
         if (item === null && buttonCommand !== null) {
             when (buttonCommand) {
                 ButtonActionConstants.GENERATE_RECIPES -> {
@@ -141,7 +140,7 @@ class MainActivity : AppCompatActivity(),
             FoodMeApiGrocery(baseContext).addGroceries(arr.toList()) { status ->
                 GlobalScope.launch(Dispatchers.Main) {
                     hideSpinner()
-                    var screen: Fragment = GroceryFragment()
+                    var screen: Fragment = MyKitchen()
                     if (!status) {
                         screen = Scanner()
                     }

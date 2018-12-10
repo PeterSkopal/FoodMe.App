@@ -11,7 +11,7 @@ import android.widget.TextView
 import com.example.skopal.foodme.R
 import com.example.skopal.foodme.classes.GroceryItem
 import com.example.skopal.foodme.constants.ButtonActionConstants
-import com.example.skopal.foodme.layouts.mykitchen.GroceryFragment.OnListFragmentInteractionListener
+import com.example.skopal.foodme.layouts.mykitchen.MyKitchen.OnListFragmentInteractionListener
 import com.example.skopal.foodme.utils.dateToSimpleString
 import kotlinx.android.synthetic.main.fragment_grocery.view.*
 import kotlinx.android.synthetic.main.fragment_grocery_button.view.*
