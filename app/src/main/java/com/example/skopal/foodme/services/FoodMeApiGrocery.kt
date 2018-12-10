@@ -33,4 +33,12 @@ class FoodMeApiGrocery(context: Context) {
             if (statusCode != 200) cb(false) else cb(true)
         }
     }
+
+    fun deleteGrocery(id: String, cb: ((Boolean) -> Unit)?) {
+        khttp.async.delete("$baseUrl/$id", headers = TokenHeader.tokenHeader(this.token)) {
+            if (cb !== null) {
+                if (statusCode != 200) cb(false) else cb(true)
+            }
+        }
+    }
 }

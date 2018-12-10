@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.example.skopal.foodme.R
 import com.example.skopal.foodme.classes.GroceryItem
 import com.example.skopal.foodme.layouts.mykitchen.GroceryFragment.OnListFragmentInteractionListener
+import com.example.skopal.foodme.services.FoodMeApiGrocery
 import com.example.skopal.foodme.utils.dateToSimpleString
 import kotlinx.android.synthetic.main.fragment_grocery.view.*
 
@@ -87,7 +88,7 @@ class MyGroceryRecyclerViewAdapter(
     override fun getItemCount(): Int = mValues.size
     fun isUndoOn(): Boolean = undoOn
 
-    fun pendingRemoval(position: Int) {
+    fun pendingRemoval(position: Int, cb: (String) -> Unit) {
         val item = mValues[position]
         if (!itemsPendingRemoval.contains(item)) {
             itemsPendingRemoval.add(item)
@@ -95,7 +96,7 @@ class MyGroceryRecyclerViewAdapter(
             notifyItemChanged(position)
 
             // create, store and post a runnable to remove the item
-            val pendingRemovalRunnable = Runnable { remove(mValues.indexOf(item)) }
+            val pendingRemovalRunnable = Runnable { remove(mValues.indexOf(item)); cb(item.id) }
             handler.postDelayed(pendingRemovalRunnable, PENDING_REMOVAL_TIMEOUT)
             pendingRunnables[item] = pendingRemovalRunnable
         }
@@ -109,6 +110,7 @@ class MyGroceryRecyclerViewAdapter(
         if (mValues.contains(item)) {
             mValues.removeAt(position)
             notifyItemRemoved(position)
+            // TODO("notify activity and remove grocery from database")
         }
     }
 
