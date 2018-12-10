@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.*
 
 /**
  * A fragment representing a list of Items.
@@ -57,7 +58,10 @@ class GroceryFragment : Fragment() {
             FoodMeApiGrocery(baseContext).getGroceries { res ->
                 GlobalScope.launch(Dispatchers.Main) {
 
-                    (activity as MainActivity).hideSpinner()
+                    if (activity !== null) {
+                        (activity as MainActivity).hideSpinner()
+                    }
+                    res.add(0, GroceryItem("", Date(), "0"))
                     adapter = MyGroceryRecyclerViewAdapter(res, listener)
                 }
             }
@@ -93,7 +97,7 @@ class GroceryFragment : Fragment() {
      * for more information.
      */
     interface OnListFragmentInteractionListener {
-        fun onListFragmentInteraction(item: GroceryItem?)
+        fun onListFragmentInteraction(item: GroceryItem?, buttonCommand: String?)
     }
 
     /**

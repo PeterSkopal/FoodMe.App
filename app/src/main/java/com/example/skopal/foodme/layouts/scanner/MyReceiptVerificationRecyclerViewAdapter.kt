@@ -6,17 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
-import com.example.skopal.foodme.MainActivity
 import com.example.skopal.foodme.R
 import com.example.skopal.foodme.classes.LineAmount
-import com.example.skopal.foodme.layouts.components.EditTextDialog
-
-
 import com.example.skopal.foodme.layouts.scanner.ReceiptVerificationFragment.OnListFragmentInteractionListener
-
 import kotlinx.android.synthetic.main.fragment_receiptverification.view.*
-import android.widget.Toast
-import android.R.attr.button
 import android.widget.Button
 import kotlinx.android.synthetic.main.fragment_receiptverification_button.view.*
 

@@ -13,11 +13,11 @@ import android.widget.ProgressBar
 import com.example.skopal.foodme.classes.GroceryItem
 import com.example.skopal.foodme.classes.LineAmount
 import com.example.skopal.foodme.classes.RecipeItem
+import com.example.skopal.foodme.constants.ButtonActionConstants
 import com.example.skopal.foodme.constants.SecureKey
 import com.example.skopal.foodme.layouts.components.EditTextDialog
 import com.example.skopal.foodme.layouts.footprint.Footprint
 import com.example.skopal.foodme.layouts.mykitchen.GroceryFragment
-import com.example.skopal.foodme.layouts.mykitchen.MyKitchen
 import com.example.skopal.foodme.layouts.mykitchen.RecipeFragment
 import com.example.skopal.foodme.layouts.mykitchen.RecipeInstruction
 import com.example.skopal.foodme.layouts.scanner.ReceiptVerificationFragment
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(),
         popStack() // popping all fragments on top of the bottom one.
         when (item.itemId) {
             R.id.navigation_my_kitchen -> {
-                replaceFragment(MyKitchen(), R.id.main_frame)
+                replaceFragment(GroceryFragment(), R.id.main_frame)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_shopping_list -> {
@@ -98,10 +98,18 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    override fun onListFragmentInteraction(item: GroceryItem?) {
-        //TODO("not implemented click on items in grocery list")
-        //To change body of created functions use File | Settings | File Templates.
+    override fun onListFragmentInteraction(item: GroceryItem?, buttonCommand: String?) {
+        println("hejhej\t$buttonCommand")
+        if (item === null && buttonCommand !== null) {
+            when (buttonCommand) {
+                ButtonActionConstants.GENERATE_RECIPES -> {
+                    changeScreen(RecipeFragment(), R.id.main_frame, true)
+                }
+            }
+        }
     }
+
+    override fun onListFragmentInteraction(item: GroceryItem?) { }
 
     /*
      * Callback function from ReceiptVerification Fragment in 'Scanner'
@@ -133,7 +141,7 @@ class MainActivity : AppCompatActivity(),
             FoodMeApiGrocery(baseContext).addGroceries(arr.toList()) { status ->
                 GlobalScope.launch(Dispatchers.Main) {
                     hideSpinner()
-                    var screen: Fragment = MyKitchen()
+                    var screen: Fragment = GroceryFragment()
                     if (!status) {
                         screen = Scanner()
                     }
