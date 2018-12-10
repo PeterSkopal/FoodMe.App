@@ -13,10 +13,10 @@ import android.widget.ProgressBar
 import com.example.skopal.foodme.classes.GroceryItem
 import com.example.skopal.foodme.classes.LineAmount
 import com.example.skopal.foodme.classes.RecipeItem
+import com.example.skopal.foodme.constants.ButtonActionConstants
 import com.example.skopal.foodme.constants.SecureKey
 import com.example.skopal.foodme.layouts.components.EditTextDialog
 import com.example.skopal.foodme.layouts.footprint.Footprint
-import com.example.skopal.foodme.layouts.mykitchen.GroceryFragment
 import com.example.skopal.foodme.layouts.mykitchen.MyKitchen
 import com.example.skopal.foodme.layouts.mykitchen.RecipeFragment
 import com.example.skopal.foodme.layouts.mykitchen.RecipeInstruction
@@ -36,7 +36,7 @@ import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity(),
-        GroceryFragment.OnListFragmentInteractionListener,
+        MyKitchen.OnListFragmentInteractionListener,
         RecipeFragment.OnListFragmentInteractionListener,
         ShoppingItemFragment.OnListFragmentInteractionListener,
         ReceiptVerificationFragment.OnListFragmentInteractionListener {
@@ -98,10 +98,17 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    override fun onListFragmentInteraction(item: GroceryItem?) {
-        //TODO("not implemented click on items in grocery list")
-        //To change body of created functions use File | Settings | File Templates.
+    override fun onListFragmentInteraction(item: GroceryItem?, buttonCommand: String?) {
+        if (item === null && buttonCommand !== null) {
+            when (buttonCommand) {
+                ButtonActionConstants.GENERATE_RECIPES -> {
+                    changeScreen(RecipeFragment(), R.id.main_frame, true)
+                }
+            }
+        }
     }
+
+    override fun onListFragmentInteraction(item: GroceryItem?) { }
 
     /*
      * Callback function from ReceiptVerification Fragment in 'Scanner'
