@@ -27,4 +27,10 @@ class FoodMeApiGrocery(context: Context) {
             }
         }
     }
+
+    fun addGroceries(arr: List<Map<String, String>>, cb: (Boolean) -> Unit) {
+        khttp.async.post(baseUrl, json = arr, headers = TokenHeader.tokenHeader(this.token)) {
+            if (statusCode != 200) cb(false) else cb(true)
+        }
+    }
 }
