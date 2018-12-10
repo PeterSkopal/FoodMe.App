@@ -139,7 +139,9 @@ class GroceryFragment : Fragment() {
                 val adapter = mRecyclerView!!.adapter as MyGroceryRecyclerViewAdapter
                 val undoOn = adapter.isUndoOn()
                 if (undoOn) {
-                    adapter.pendingRemoval(swipedPosition)
+                    adapter.pendingRemoval(swipedPosition) { id ->
+                        FoodMeApiGrocery((activity as MainActivity).baseContext).deleteGrocery(id, null)
+                    }
                 } else {
                     adapter.remove(swipedPosition)
                 }

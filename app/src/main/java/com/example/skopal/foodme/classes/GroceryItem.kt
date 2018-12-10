@@ -5,5 +5,6 @@ import java.util.*
 
 data class GroceryItem(
         @SerializedName("name") val name: String,
-        @SerializedName("inserted") val inserted: Date
+        @SerializedName("inserted") val inserted: Date,
+        @SerializedName("id") val id: String
 )
