@@ -25,10 +25,14 @@ import com.example.skopal.foodme.layouts.scanner.Scanner
 import com.example.skopal.foodme.layouts.settings.Settings
 import com.example.skopal.foodme.layouts.shoppinglist.ShoppingItemFragment
 import com.example.skopal.foodme.layouts.shoppinglist.ShoppingList
+import com.example.skopal.foodme.services.FoodMeApiGrocery
 import com.example.skopal.foodme.services.KeyService
 import com.example.skopal.foodme.utils.inTransaction
 import kotlinx.android.synthetic.main.activity_main.*
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity(),
@@ -102,8 +106,9 @@ class MainActivity : AppCompatActivity(),
     /*
      * Callback function from ReceiptVerification Fragment in 'Scanner'
      */
-    override fun onListFragmentInteraction(item: LineAmount?) {
-        if (item !== null) {
+    override fun onListFragmentInteraction(item: LineAmount?, values: List<LineAmount>?) {
+
+        if (item !== null) { // click on any grocery
             val dialog = EditTextDialog.newInstance(
                     title = "Edit the Grocery Title",
                     text = item.description,
@@ -113,10 +118,29 @@ class MainActivity : AppCompatActivity(),
                 item.description = dialog.editText.text.toString()
             }
             dialog.show(supportFragmentManager, "editDescription")
-        }
 
-        //TODO("not implemented click on items in receipt item verification list")
-        //To change body of created functions use File | Settings | File Templates.
+        } else if (values !== null) { // click on add groceries to my kitchen button
+            showSpinner()
+
+            val arr = mutableListOf<Map<String, String>>()
+
+            for (i in values) {
+                if (i.include) {
+                    arr.add(mapOf("name" to i.description))
+                }
+            }
+
+            FoodMeApiGrocery(baseContext).addGroceries(arr.toList()) { status ->
+                GlobalScope.launch(Dispatchers.Main) {
+                    hideSpinner()
+                    var screen: Fragment = MyKitchen()
+                    if (!status) {
+                        screen = Scanner()
+                    }
+                    changeScreen(screen, R.id.main_frame)
+                }
+            }
+        }
     }
     /*
      * Private Utils

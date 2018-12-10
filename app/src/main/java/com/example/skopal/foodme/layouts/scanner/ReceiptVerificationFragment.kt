@@ -91,7 +91,7 @@ class ReceiptVerificationFragment : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: LineAmount?)
+        fun onListFragmentInteraction(item: LineAmount?, values: List<LineAmount>?)
     }
 
 
