@@ -21,10 +21,11 @@ import android.graphics.PorterDuff
 import android.support.v4.content.ContextCompat
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.widget.Button
+import kotlinx.android.synthetic.main.fragment_my_kitchen.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.util.*
 
 /**
  * A fragment representing a list of Items.
@@ -39,16 +40,21 @@ class MyKitchen : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_grocery_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_my_kitchen, container, false)
+
+        val button = view.findViewById<Button>(R.id.grocery_list_generate_button)
+        button.setOnClickListener {
+            (activity as MainActivity).changeScreen(RecipeFragment(), R.id.main_frame, true)
+        }
 
         val baseContext = (activity as MainActivity).baseContext
-        mRecyclerView = view as RecyclerView
+        mRecyclerView = view.grocery_list as RecyclerView
 
         setUpItemTouchHelper(baseContext)
         setUpAnimationDecoratorHelper()
 
         // Set the adapter
-        with(view) {
+        with(view.grocery_list) {
             layoutManager = when {
                 columnCount <= 1 -> LinearLayoutManager(context)
                 else -> GridLayoutManager(context, columnCount)
@@ -61,12 +67,11 @@ class MyKitchen : Fragment() {
                     if (activity !== null) {
                         (activity as MainActivity).hideSpinner()
                     }
-                    res.add(0, GroceryItem("", Date(), "0"))
                     adapter = MyGroceryRecyclerViewAdapter(res, listener)
                 }
             }
             val itemDecor = DividerItemDecoration(context, resources.configuration.orientation)
-            view.addItemDecoration(itemDecor)
+            view.grocery_list.addItemDecoration(itemDecor)
         }
         return view
     }
@@ -97,7 +102,7 @@ class MyKitchen : Fragment() {
      * for more information.
      */
     interface OnListFragmentInteractionListener {
-        fun onListFragmentInteraction(item: GroceryItem?, buttonCommand: String?)
+        fun onListFragmentInteraction(item: GroceryItem?)
     }
 
     /**

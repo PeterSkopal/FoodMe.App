@@ -10,11 +10,9 @@ import android.widget.Button
 import android.widget.TextView
 import com.example.skopal.foodme.R
 import com.example.skopal.foodme.classes.GroceryItem
-import com.example.skopal.foodme.constants.ButtonActionConstants
 import com.example.skopal.foodme.layouts.mykitchen.MyKitchen.OnListFragmentInteractionListener
 import com.example.skopal.foodme.utils.dateToSimpleString
 import kotlinx.android.synthetic.main.fragment_grocery.view.*
-import kotlinx.android.synthetic.main.fragment_grocery_button.view.*
 
 /**
  * [RecyclerView.Adapter] that can display a [GroceryItem] and makes a call to the
@@ -39,68 +37,51 @@ class MyGroceryRecyclerViewAdapter(
 
     private val mOnClickListener: View.OnClickListener
 
-    val CONTENT_TYPE = 1
-    val BUTTON_TYPE = 2
-    private val generateRecipeButtonPosition = 0
-
     init {
         mOnClickListener = View.OnClickListener { v ->
             val item = v.tag as GroceryItem
-            mListener?.onListFragmentInteraction(item, null)
+            mListener?.onListFragmentInteraction(item)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var layout: Int = R.layout.fragment_grocery
-        if (viewType == BUTTON_TYPE) {
-            layout = R.layout.fragment_grocery_button
-        }
-        val view = LayoutInflater.from(parent.context).inflate(layout, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(
+                R.layout.fragment_grocery, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        if (position == generateRecipeButtonPosition) {
+        val item = mValues[position]
 
-            // setting a click listener on the button view
-            with(holder.mButton!!) {
-                setOnClickListener {
-                    mListener?.onListFragmentInteraction(null, ButtonActionConstants.GENERATE_RECIPES)
-                }
+        with(holder.mView) {
+            tag = item
+            setOnClickListener(mOnClickListener)
+        }
+
+        if (itemsPendingRemoval.contains(item)) { // draw undo state
+            holder.itemView.setBackgroundColor(Color.RED)
+            holder.mNameView.visibility = View.GONE
+            holder.mTimeView.visibility = View.GONE
+            holder.mUndoButton.visibility = View.VISIBLE
+
+            holder.mUndoButton.setOnClickListener {
+                val pendingRemovalRunnable = pendingRunnables[item]
+                pendingRunnables.remove(item)
+                if (pendingRemovalRunnable != null) handler.removeCallbacks(pendingRemovalRunnable)
+                itemsPendingRemoval.remove(item)
+                notifyItemChanged(mValues.indexOf(item))
             }
-        } else {
-            val item = mValues[position]
 
-            with(holder.mView) {
-                tag = item
-                setOnClickListener(mOnClickListener)
-            }
+        } else { // draw regular state
+            holder.itemView.setBackgroundColor(Color.WHITE)
+            holder.mNameView.visibility = View.VISIBLE
+            holder.mTimeView.visibility = View.VISIBLE
+            holder.mUndoButton.visibility = View.GONE
 
-            if (itemsPendingRemoval.contains(item)) { // draw undo state
-                holder.itemView.setBackgroundColor(Color.RED)
-                holder.mNameView!!.visibility = View.GONE
-                holder.mTimeView!!.visibility = View.GONE
-                holder.mUndoButton!!.visibility = View.VISIBLE
-
-                holder.mUndoButton!!.setOnClickListener {
-                    val pendingRemovalRunnable = pendingRunnables[item]
-                    pendingRunnables.remove(item)
-                    if (pendingRemovalRunnable != null) handler.removeCallbacks(pendingRemovalRunnable)
-                    itemsPendingRemoval.remove(item)
-                    notifyItemChanged(mValues.indexOf(item))
-                }
-
-            } else { // draw regular state
-                holder.itemView.setBackgroundColor(Color.WHITE)
-                holder.mNameView!!.visibility = View.VISIBLE
-                holder.mTimeView!!.visibility = View.VISIBLE
-                holder.mUndoButton!!.visibility = View.GONE
-
-                holder.mNameView!!.text = item.name
-                holder.mTimeView.text = dateToSimpleString(item.inserted)
-                holder.mUndoButton!!.setOnClickListener(null)
-            }
+            holder.mNameView.text = item.name
+            holder.mTimeView.text = dateToSimpleString(item.inserted)
+            holder.mUndoButton.setOnClickListener(null)
         }
     }
 
@@ -136,13 +117,10 @@ class MyGroceryRecyclerViewAdapter(
 
     override fun getItemCount(): Int = mValues.size
     fun isUndoOn(): Boolean = undoOn
-    override fun getItemViewType(position: Int): Int =
-            if (position == generateRecipeButtonPosition) BUTTON_TYPE else CONTENT_TYPE
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mTimeView: TextView? = mView.time
-        var mNameView: TextView? = mView.name_view
-        var mUndoButton: Button? = mView.undo_button
-        val mButton: Button? = mView.grocery_list_button
+        val mTimeView: TextView = mView.time
+        var mNameView: TextView = mView.name_view
+        var mUndoButton: Button = mView.undo_button
     }
 }

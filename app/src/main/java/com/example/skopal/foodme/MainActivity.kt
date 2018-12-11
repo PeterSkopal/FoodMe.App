@@ -13,7 +13,6 @@ import android.widget.ProgressBar
 import com.example.skopal.foodme.classes.GroceryItem
 import com.example.skopal.foodme.classes.LineAmount
 import com.example.skopal.foodme.classes.RecipeItem
-import com.example.skopal.foodme.constants.ButtonActionConstants
 import com.example.skopal.foodme.constants.SecureKey
 import com.example.skopal.foodme.layouts.components.EditTextDialog
 import com.example.skopal.foodme.layouts.footprint.Footprint
@@ -95,16 +94,6 @@ class MainActivity : AppCompatActivity(),
         if (item !== null) {
             val fragment = RecipeInstruction.newInstance(item.id, item.image)
             replaceFragment(fragment, R.id.main_frame, true)
-        }
-    }
-
-    override fun onListFragmentInteraction(item: GroceryItem?, buttonCommand: String?) {
-        if (item === null && buttonCommand !== null) {
-            when (buttonCommand) {
-                ButtonActionConstants.GENERATE_RECIPES -> {
-                    changeScreen(RecipeFragment(), R.id.main_frame, true)
-                }
-            }
         }
     }
 
