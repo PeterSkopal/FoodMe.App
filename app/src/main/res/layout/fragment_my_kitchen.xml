@@ -5,13 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/grocery_list"
         android:name="com.example.skopal.foodme.layouts.mykitchen.GroceryFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layoutManager="LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/grocery_list_generate_button"
+        app:layout_constraintBottom_toTopOf="@+id/grocery_list_generate_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:context=".layouts.mykitchen.MyKitchen"
         tools:listitem="@layout/fragment_grocery" />
 
