@@ -42,6 +42,8 @@ class MyKitchen : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_my_kitchen, container, false)
 
+        (activity as MainActivity).setActionBarTitle(getString(R.string.title_kitchen))
+
         val button = view.findViewById<Button>(R.id.grocery_list_generate_button)
         button.setOnClickListener {
             (activity as MainActivity).changeScreen(RecipeFragment(), R.id.main_frame, true)
