@@ -51,6 +51,7 @@ public class Footprint extends Fragment {
         MainActivity activity = ((MainActivity) getActivity());
         if (activity != null) {
             activity.setActionBarTitle(getString(R.string.title_footprint));
+            activity.showSpinner("");
         }
 
 
@@ -65,7 +66,7 @@ public class Footprint extends Fragment {
         }
 
         AnyChartView anyChartView = view.findViewById(R.id.chart_footprint);
-        anyChartView.setProgressBar(view.findViewById(R.id.loading_spinner));
+        anyChartView.setProgressBar(view.findViewById(R.id.loading_frame));
 
         Cartesian areaChart = AnyChart.area();
         areaChart.title(getString(R.string.title_footprint));
