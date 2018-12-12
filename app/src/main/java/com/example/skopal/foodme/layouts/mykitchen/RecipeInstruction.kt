@@ -50,7 +50,7 @@ class RecipeInstruction : Fragment() {
 
         val baseContext = (activity as MainActivity).baseContext
 
-        (activity as MainActivity).showSpinner()
+        (activity as MainActivity).showSpinner(getString(R.string.loading_recipe))
         SpoonacularApi(baseContext).getRecipe(recipeId) { res ->
             GlobalScope.launch(Dispatchers.Main) {
                 if (res !== null) {

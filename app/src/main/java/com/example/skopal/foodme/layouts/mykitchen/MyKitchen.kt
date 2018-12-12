@@ -62,7 +62,7 @@ class MyKitchen : Fragment() {
                 else -> GridLayoutManager(context, columnCount)
             }
 
-            (activity as MainActivity).showSpinner()
+            (activity as MainActivity).showSpinner(getString(R.string.loading_my_kitchen))
             FoodMeApiGrocery(baseContext).getGroceries { res ->
                 GlobalScope.launch(Dispatchers.Main) {
 
