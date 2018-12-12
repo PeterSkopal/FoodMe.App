@@ -35,6 +35,15 @@
     <string name="nav_title_footprint">Footprint</string>
     <string name="nav_title_settings">Settings</string>
 
+    <!-- Loading State descriptions -->
+    <string name="loading_login">Logging in&#8230;</string>
+    <string name="loading_my_kitchen">Fetching Your Groceries&#8230;</string>
+    <string name="loading_recipe_list">Generating Recipes&#8230;</string>
+    <string name="loading_recipe">Getting Instructions&#8230;</string>
+    <string name="loading_shopping_list">Fetching Your Shopping List&#8230;</string>
+    <string name="loading_scanning_receipt">Processing Receipt&#8230;</string>
+    <string name="loading_footprint">Calculating Footprint&#8230;</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

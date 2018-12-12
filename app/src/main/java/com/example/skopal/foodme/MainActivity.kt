@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import com.example.skopal.foodme.classes.GroceryItem
 import com.example.skopal.foodme.classes.LineAmount
 import com.example.skopal.foodme.classes.RecipeItem
@@ -29,6 +29,7 @@ import com.example.skopal.foodme.services.KeyService
 import com.example.skopal.foodme.utils.inTransaction
 import kotlinx.android.synthetic.main.activity_main.*
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
+import kotlinx.android.synthetic.main.loading_spinner.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     private lateinit var keyService: KeyService
-    private lateinit var spinner: ProgressBar
+    private lateinit var spinner: RelativeLayout
     private var stackInitLevel: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,7 +80,7 @@ class MainActivity : AppCompatActivity(),
 
         setContentView(R.layout.activity_main)
 
-        spinner = findViewById(R.id.loading_spinner)
+        spinner = findViewById(R.id.loading_frame)
 
         setUpBackStackListener()
 
@@ -200,7 +201,8 @@ class MainActivity : AppCompatActivity(),
         keyService.removeKey(SecureKey.USER_MAIL)
     }
 
-    fun showSpinner() {
+    fun showSpinner(text: String? = "") {
+        spinner.loading_text.text = text
         spinner.visibility = VISIBLE
     }
 

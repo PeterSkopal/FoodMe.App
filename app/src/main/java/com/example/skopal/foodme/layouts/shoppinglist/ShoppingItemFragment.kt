@@ -43,7 +43,7 @@ class ShoppingItemFragment : Fragment() {
 
                 val baseContext = (activity as MainActivity).baseContext
 
-                (activity as MainActivity).showSpinner()
+                (activity as MainActivity).showSpinner(getString(R.string.loading_shopping_list))
                 FoodMeApiGrocery(baseContext).getGroceries{ res ->
                     GlobalScope.launch(Dispatchers.Main) {
 

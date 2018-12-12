@@ -49,7 +49,7 @@ class ReceiptVerificationFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
 
-                (activity as MainActivity).showSpinner()
+                (activity as MainActivity).showSpinner(getString(R.string.loading_scanning_receipt))
                 ReceiptRecognitionApi((activity as MainActivity).baseContext).parseReceipt(File(filePath)) { receipt ->
                     if (receipt !== null) {
                         GlobalScope.launch(Dispatchers.Main) {

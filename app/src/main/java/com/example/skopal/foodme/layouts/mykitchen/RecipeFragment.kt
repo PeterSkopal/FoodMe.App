@@ -52,7 +52,7 @@ class RecipeFragment : Fragment() {
                     intolerance = foodIntolerance.toString().replace(Regex("^.|.$"), "")
                 }
 
-                (activity as MainActivity).showSpinner()
+                (activity as MainActivity).showSpinner(getString(R.string.loading_recipe_list))
                 FoodMeApiGrocery(baseContext).getGroceries { groceries ->
                     SpoonacularApi(baseContext).getRecipeSearch(
                             groceries.joinToString { it.name },
