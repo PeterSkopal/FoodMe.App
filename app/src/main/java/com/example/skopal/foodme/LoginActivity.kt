@@ -21,11 +21,14 @@ import android.text.TextUtils
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.skopal.foodme.classes.TokenResponse
 import com.example.skopal.foodme.constants.SecureKey
+import com.example.skopal.foodme.layouts.components.LoadingSpinner
 import com.example.skopal.foodme.services.FoodMeApiUser
 import com.example.skopal.foodme.services.KeyService
+import com.example.skopal.foodme.utils.hideKeyboard
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.ArrayList
@@ -40,6 +43,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     private var mAuthTask: UserLoginTask? = null
     private var gson = Gson()
     private lateinit var keyService: KeyService
+    private lateinit var spinner: LoadingSpinner
+    private lateinit var subSpinner: RelativeLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +52,9 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         keyService = KeyService(baseContext)
 
         setContentView(R.layout.activity_login)
+        spinner = findViewById(R.id.loading_login)
+        spinner.findViewById<TextView>(R.id.loading_text).text = getString(R.string.loading_login)
+        subSpinner = findViewById(R.id.loading_frame)
         // Set up the login form.
         populateAutoComplete()
         password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
@@ -69,16 +77,14 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     }
 
     private fun mayRequestContacts(): Boolean {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true
-        }
         if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
             return true
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(email, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                    .setAction(android.R.string.ok,
-                            { requestPermissions(arrayOf(READ_CONTACTS), REQUEST_READ_CONTACTS) })
+                    .setAction(android.R.string.ok) {
+                        requestPermissions(arrayOf(READ_CONTACTS), REQUEST_READ_CONTACTS)
+                    }
         } else {
             requestPermissions(arrayOf(READ_CONTACTS), REQUEST_READ_CONTACTS)
         }
@@ -144,6 +150,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+            hideKeyboard()
             showProgress(true)
             mAuthTask = UserLoginTask(emailStr, passwordStr)
             mAuthTask!!.execute(null as Void?)
@@ -165,37 +172,29 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private fun showProgress(show: Boolean) {
-        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
-        // for very easy animations. If available, use these APIs to fade-in
-        // the progress spinner.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            val shortAnimTime = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
+        val shortAnimTime = resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
 
-            login_form.visibility = if (show) View.GONE else View.VISIBLE
-            login_form.animate()
-                    .setDuration(shortAnimTime)
-                    .alpha((if (show) 0 else 1).toFloat())
-                    .setListener(object : AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator) {
-                            login_form.visibility = if (show) View.GONE else View.VISIBLE
-                        }
-                    })
+        login_form.visibility = if (show) View.GONE else View.VISIBLE
+        login_form.animate()
+                .setDuration(shortAnimTime)
+                .alpha((if (show) 0 else 1).toFloat())
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        login_form.visibility = if (show) View.GONE else View.VISIBLE
+                    }
+                })
 
-            login_progress.visibility = if (show) View.VISIBLE else View.GONE
-            login_progress.animate()
-                    .setDuration(shortAnimTime)
-                    .alpha((if (show) 1 else 0).toFloat())
-                    .setListener(object : AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator) {
-                            login_progress.visibility = if (show) View.VISIBLE else View.GONE
-                        }
-                    })
-        } else {
-            // The ViewPropertyAnimator APIs are not available, so simply show
-            // and hide the relevant UI components.
-            login_progress.visibility = if (show) View.VISIBLE else View.GONE
-            login_form.visibility = if (show) View.GONE else View.VISIBLE
-        }
+        spinner.visibility = if (show) View.VISIBLE else View.GONE
+        spinner.animate()
+                .setDuration(shortAnimTime)
+                .alpha((if (show) 1 else 0).toFloat())
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        spinner.visibility = if (show) View.VISIBLE else View.GONE
+                    }
+                })
+
+        subSpinner.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     override fun onCreateLoader(i: Int, bundle: Bundle?): Loader<Cursor> {
@@ -253,12 +252,17 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         override fun doInBackground(vararg params: Void): Boolean? {
 
             try {
-                FoodMeApiUser().loginUser(mEmail, mPassword) { res ->
-                    val response = gson.fromJson(res, TokenResponse::class.java)
-                    keyService.addKey(SecureKey.USER_TOKEN, response.token)
-                    keyService.addKey(SecureKey.USER_MAIL, response.email)
-                    onPostExecute(true)
-                }
+
+                Runnable {
+                    // creating new thread, otherwise this will fall asleep as well.
+                    FoodMeApiUser().loginUser(mEmail, mPassword) { res ->
+                        val response = gson.fromJson(res, TokenResponse::class.java)
+                        keyService.addKey(SecureKey.USER_TOKEN, response.token)
+                        keyService.addKey(SecureKey.USER_MAIL, response.email)
+                    }
+                }.run()
+
+                Thread.sleep(5000) // TODO("Await the real response instead of sleeping thread.")
                 return true
             } catch (e: InterruptedException) {
                 return false
