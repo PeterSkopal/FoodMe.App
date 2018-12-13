@@ -2,6 +2,7 @@ package com.example.skopal.foodme.layouts.shoppinglist
 
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.GridLayoutManager
@@ -14,6 +15,8 @@ import com.example.skopal.foodme.MainActivity
 import com.example.skopal.foodme.R
 import com.example.skopal.foodme.classes.GroceryItem
 import com.example.skopal.foodme.services.FoodMeApiGrocery
+import com.example.skopal.foodme.utils.showToast
+import kotlinx.android.synthetic.main.fragment_shoppingitem_list.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -34,8 +37,8 @@ class ShoppingItemFragment : Fragment() {
         (activity as MainActivity).setActionBarTitle(getString(R.string.title_shopping_list))
 
         // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
+        if (view.shopping_list_recycler is RecyclerView) {
+            with(view.shopping_list_recycler) {
                 layoutManager = when {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
@@ -52,7 +55,15 @@ class ShoppingItemFragment : Fragment() {
                     }
                 }
                 val itemDecor = DividerItemDecoration(context, resources.configuration.orientation)
-                view.addItemDecoration(itemDecor)
+                view.shopping_list_recycler.addItemDecoration(itemDecor)
+            }
+        }
+
+        if (view.add_shopping_list_item is FloatingActionButton) {
+            view.add_shopping_list_item.setOnClickListener {
+                if (view.shopping_list_recycler.adapter !== null) {
+                    (activity as MainActivity).showToast(getString(R.string.not_implemented))
+                }
             }
         }
         return view
