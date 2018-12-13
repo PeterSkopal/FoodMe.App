@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -68,6 +69,12 @@ class MainActivity : AppCompatActivity(),
         false
     }
 
+    private fun getPermissions() = runWithPermissions(
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+    ) {}
+
     private lateinit var keyService: KeyService
     private lateinit var spinner: RelativeLayout
     private var stackInitLevel: Int = 0
@@ -75,17 +82,24 @@ class MainActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        keyService = KeyService(baseContext)
-        login()
+        getPermissions()
 
         setContentView(R.layout.activity_main)
-
         spinner = findViewById(R.id.loading_frame)
-
         setUpBackStackListener()
 
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        navigation.selectedItemId = R.id.navigation_my_kitchen
+        keyService = KeyService(baseContext)
+        val token = keyService.getKey(SecureKey.USER_TOKEN)
+        val email = keyService.getKey(SecureKey.USER_MAIL)
+
+        if (token === null || email === null) {
+            changeActivity(LoginActivity::class.java)
+        } else {
+
+            navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+            navigation.selectedItemId = R.id.navigation_my_kitchen
+        }
+
     }
 
     /*
@@ -98,7 +112,7 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    override fun onListFragmentInteraction(item: GroceryItem?) { }
+    override fun onListFragmentInteraction(item: GroceryItem?) {}
 
     /*
      * Callback function from ReceiptVerification Fragment in 'Scanner'
@@ -161,19 +175,6 @@ class MainActivity : AppCompatActivity(),
 
     private fun setBackArrowVisible(bool: Boolean) {
         supportActionBar?.setDisplayHomeAsUpEnabled(bool)
-    }
-
-    private fun login() = runWithPermissions(
-            Manifest.permission.CAMERA,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE
-    ) {
-        val token = keyService.getKey(SecureKey.USER_TOKEN)
-        val email = keyService.getKey(SecureKey.USER_MAIL)
-
-        if (token === null || email === null) {
-            changeActivity(LoginActivity::class.java)
-        }
     }
 
     /**
