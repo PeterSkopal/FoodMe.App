@@ -14,7 +14,7 @@
     {
       "type": "STORAGE",
       "product": "Pork (cooked sliced ham, bacon, raw & cooked sausage)",
-      "description": "For best quality, freeze when fresh. Safe to freeze up to use by date (defrost and use within 24 h).\nWrap in air-tight packaging. Defrost in fridge. Remove as much fat as possible prior to freezing.",
+      "description": "For best quality, freeze when fresh. Safe to freeze up to use by date (defrost and use within 24 h).\n\nWrap in air-tight packaging. Defrost in fridge. Remove as much fat as possible prior to freezing.",
       "freezing_compatibility": "yes",
       "detrimental_issues": "Rancidity, oxidation",
       "lifetime": [
@@ -25,7 +25,7 @@
     {
       "type": "STORAGE",
       "product": "Vegetables",
-      "description": "Some high water content vegetables not suitable for freezing, but many can be chopped and successfully frozen.\nFreeze as soon as possible to retain vitamins/nutrients. Blanching prior to freezing is essential to inactivate enzymes.\nWrap in air-tight packaging. Freeze in small volumes for best results. Most vegetables can be cooked directly from frozen.\nIndividually freeze items if possible as freezing is faster and portioning is simpler, then transfer to bags.",
+      "description": "Some high water content vegetables not suitable for freezing, but many can be chopped and successfully frozen.\n\nFreeze as soon as possible to retain vitamins/nutrients. Blanching prior to freezing is essential to inactivate enzymes.\n\nWrap in air-tight packaging. Freeze in small volumes for best results. Most vegetables can be cooked directly from frozen.\n\nIndividually freeze items if possible as freezing is faster and portioning is simpler, then transfer to bags.",
       "freezing_compatibility": "generally yes (if blanched)",
       "detrimental_issues": "Loss of flavour, color, texture",
       "lifetime": [
@@ -91,7 +91,7 @@
     {
       "type": "STORAGE",
       "product": "Store-bought yogurt",
-      "description": "Freeze as soon as possible after purchase. Freeze in small quantities if possible. Freeze in air-tight container.\nThaw in fridge. Stir after thawing to re-combine. Consider making yogurt ice cream or lollies to use up spare yogurt.",
+      "description": "Freeze as soon as possible after purchase. Freeze in small quantities if possible. Freeze in air-tight container.\n\nThaw in fridge. Stir after thawing to re-combine. Consider making yogurt ice cream or lollies to use up spare yogurt.",
       "freezing_compatibility": "Mostly yes",
       "detrimental_issues": "Texture and separation",
       "lifetime": [
@@ -102,7 +102,7 @@
     {
       "type": "STORAGE",
       "product": "Fruit juice",
-      "description": "Freeze as soon as possible after purchase. Pasteurize fresh juices. Freeze in small quantities if possible. Freeze in air-tight container.\nThaw in fridge. Shake after thawing to re-combine. Consider making lollies to use up spare juice.",
+      "description": "Freeze as soon as possible after purchase. Pasteurize fresh juices. Freeze in small quantities if possible. Freeze in air-tight container.\n\nThaw in fridge. Shake after thawing to re-combine. Consider making lollies to use up spare juice.",
       "freezing_compatibility": "yes",
       "detrimental_issues": "Thickening",
       "lifetime": [
