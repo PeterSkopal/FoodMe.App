@@ -1,6 +1,7 @@
 package com.example.skopal.foodme.layouts.footprint
 
 import android.support.v7.widget.RecyclerView
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,12 +28,14 @@ class MyAdviceRecyclerViewAdapter(private val mValues: List<Advice>)
         holder.mType.setImageResource(R.drawable.ic_my_kitchen_24dp)
         holder.mTitle.text = item.product
         holder.mDescription.text = item.description
+        var lifetime = "No Data"
 
-         var lifetime = "No Data"
-         if (item.lifetime[0] !== null && item.lifetime[1] !== null) {
-             lifetime = "${item.lifetime[0]} - ${item.lifetime[1]}"
-         }
-         holder.mLifetime.text = lifetime
+        val from = item.lifetime[0]
+        val to = item.lifetime[1]
+        if (from !== null && to !== null) {
+            lifetime = "lifetime\n<b>$from</b> - <b>$to</b>\nmonths"
+        }
+        holder.mLifetime.text = Html.fromHtml(lifetime)
     }
 
     override fun getItemCount(): Int = mValues.size

@@ -7,9 +7,10 @@
     <LinearLayout
         android:id="@+id/left"
         android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
 
@@ -22,7 +23,8 @@
         <TextView
             android:id="@+id/lifetime"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="center" />
 
     </LinearLayout>
 
