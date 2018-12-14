@@ -7,7 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Button;
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
@@ -21,6 +21,7 @@ import com.anychart.enums.ScaleStackMode;
 import com.anychart.graphics.vector.Stroke;
 import com.example.skopal.foodme.MainActivity;
 import com.example.skopal.foodme.R;
+import com.example.skopal.foodme.layouts.footprint.AdviceFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,18 @@ public class Footprint extends Fragment {
             activity.setActionBarTitle(getString(R.string.title_footprint));
             activity.showSpinner("");
         }
+
+        Button button = view.findViewById(R.id.footprint_advice_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity activity = ((MainActivity) getActivity());
+                if (activity != null) {
+                    activity.hideSpinner();
+                    activity.changeScreen(new AdviceFragment(), R.id.main_frame, true);
+                }
+            }
+        });
 
 
         Context context = getContext();

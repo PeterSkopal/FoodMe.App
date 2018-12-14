@@ -1,0 +1,136 @@
+{
+  "advice": [
+    {
+      "type": "STORAGE",
+      "product": "Bread",
+      "description": "Freeze in air-tight packaging. Freeze when as fresh as possible. Freeze in portions to speed up freezing rate and for ease of use.",
+      "freezing_compatibility": "yes",
+      "detrimental_issues": "Staling, dehydration",
+      "lifetime": [
+        0.5,
+        8
+      ]
+    },
+    {
+      "type": "STORAGE",
+      "product": "Pork (cooked sliced ham, bacon, raw & cooked sausage)",
+      "description": "For best quality, freeze when fresh. Safe to freeze up to use by date (defrost and use within 24 h).\nWrap in air-tight packaging. Defrost in fridge. Remove as much fat as possible prior to freezing.",
+      "freezing_compatibility": "yes",
+      "detrimental_issues": "Rancidity, oxidation",
+      "lifetime": [
+        1,
+        6
+      ]
+    },
+    {
+      "type": "STORAGE",
+      "product": "Vegetables",
+      "description": "Some high water content vegetables not suitable for freezing, but many can be chopped and successfully frozen.\nFreeze as soon as possible to retain vitamins/nutrients. Blanching prior to freezing is essential to inactivate enzymes.\nWrap in air-tight packaging. Freeze in small volumes for best results. Most vegetables can be cooked directly from frozen.\nIndividually freeze items if possible as freezing is faster and portioning is simpler, then transfer to bags.",
+      "freezing_compatibility": "generally yes (if blanched)",
+      "detrimental_issues": "Loss of flavour, color, texture",
+      "lifetime": [
+        1,
+        18
+      ]
+    },
+    {
+      "type": "STORAGE",
+      "product": "Fruit",
+      "description": "Wrap in air-tight packaging. Freeze as soon after harvest/purchase as possible. Individually freeze fruits if possible to accelerate freezing rate and reduce loss of structure on thawing, then transfer to bags. Consider making fruits into sauces or purees to freeze, to save space and to utilize fruits that are likely to lose structure after thawing.",
+      "freezing_compatibility": "Mostly yes",
+      "detrimental_issues": "Loss of structure",
+      "lifetime": [
+        4,
+        24
+      ]
+    },
+    {
+      "type": "STORAGE",
+      "product": "Pasta meals (home-made)",
+      "description": "Cool rapidly after cooking. Freeze in portions, freeze in air-tight container or bag. If preparing food specifically to freeze, undercook meal to allow reheating after meal is thawed. Keep thawed product in fridge for up to 1 day before eating.",
+      "freezing_compatibility": "Mostly yes",
+      "detrimental_issues": "Separation of sauces, texture of pasta",
+      "lifetime": [
+        2,
+        4
+      ]
+    },
+    {
+      "type": "STORAGE",
+      "product": "Rice meals (home-made)",
+      "description": "Cool rapidly after cooking. Freeze in portions, freeze in air-tight container or bag. If preparing food specifically to freeze, undercook meal to allow reheating after meal is thawed. Keep thawed product in fridge for up to 1 day before eating.",
+      "freezing_compatibility": "Mostly yes",
+      "detrimental_issues": "Bacteria growth prior to freezing",
+      "lifetime": [
+        2,
+        4
+      ]
+    },
+    {
+      "type": "STORAGE",
+      "product": "Chilled ready meals",
+      "description": "For best quality, freeze when fresh. Safe to freeze up to use by date (defrost and use within 24 h). Cook from frozen or defrost in fridge.",
+      "freezing_compatibility": "yes",
+      "detrimental_issues": "Separation of sauces, texture of meal",
+      "lifetime": [
+        null,
+        null
+      ]
+    },
+    {
+      "type": "STORAGE",
+      "product": "Milk",
+      "description": "For best quality, freeze when fresh. Safe to freeze up to use by date (defrost and use within 24 h). Freeze in small quantities if possible. Leave headspace/decant into suitable container. Thaw in fridge. Shake after thawing to re-combine.",
+      "freezing_compatibility": "Mostly yes",
+      "detrimental_issues": "Separating and curdling",
+      "lifetime": [
+        1,
+        4
+      ]
+    },
+    {
+      "type": "STORAGE",
+      "product": "Store-bought yogurt",
+      "description": "Freeze as soon as possible after purchase. Freeze in small quantities if possible. Freeze in air-tight container.\nThaw in fridge. Stir after thawing to re-combine. Consider making yogurt ice cream or lollies to use up spare yogurt.",
+      "freezing_compatibility": "Mostly yes",
+      "detrimental_issues": "Texture and separation",
+      "lifetime": [
+        1,
+        2
+      ]
+    },
+    {
+      "type": "STORAGE",
+      "product": "Fruit juice",
+      "description": "Freeze as soon as possible after purchase. Pasteurize fresh juices. Freeze in small quantities if possible. Freeze in air-tight container.\nThaw in fridge. Shake after thawing to re-combine. Consider making lollies to use up spare juice.",
+      "freezing_compatibility": "yes",
+      "detrimental_issues": "Thickening",
+      "lifetime": [
+        4,
+        12
+      ]
+    },
+    {
+      "type": "STORAGE",
+      "product": "Ambient cooking sauces",
+      "description": "Freeze unopened sauces as soon as possible after purchase. Decant sauces in glass jars to plastic containers/bags. Once opened, refrigerate immediately, use/freeze within time indicated on the label. If made into meals, follow guidance for home-cooked meals.",
+      "freezing_compatibility": "Mostly yes",
+      "detrimental_issues": "Separation of sauces, texture of meal",
+      "lifetime": [
+        null,
+        null
+      ]
+    },
+    {
+      "type": "STORAGE",
+      "product": "Meat joints (raw and cooked)",
+      "description": "Freeze when fresh. Safe to freeze up to use by date (defrost and use within 24 h). Freeze in small portions if possible. Remove as much fat as possible prior to freezing. Wrap in air-tight packaging. Cook and eat soon after thawing or cook smaller portions from frozen.",
+      "freezing_compatibility": "yes",
+      "detrimental_issues": "Rancidity, oxidation",
+      "lifetime": [
+        1,
+        12
+      ]
+    }
+  ]
+}
