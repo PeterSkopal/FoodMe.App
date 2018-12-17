@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.skopal.foodme.R
 import com.example.skopal.foodme.classes.Advice
+import com.example.skopal.foodme.constants.AdviceType
 import kotlinx.android.synthetic.main.fragment_advice.view.*
 
 /**
@@ -16,6 +17,13 @@ import kotlinx.android.synthetic.main.fragment_advice.view.*
  */
 class MyAdviceRecyclerViewAdapter(private val mValues: List<Advice>)
     : RecyclerView.Adapter<MyAdviceRecyclerViewAdapter.ViewHolder>() {
+
+    private fun adviceIcon(item: String): Int {
+        return when (item) {
+            AdviceType.FREEZE_STORAGE -> R.drawable.ic_snowflake_24dp
+            else -> R.drawable.ic_my_kitchen_24dp
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -25,7 +33,8 @@ class MyAdviceRecyclerViewAdapter(private val mValues: List<Advice>)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.mType.setImageResource(R.drawable.ic_my_kitchen_24dp)
+
+        holder.mType.setImageResource(adviceIcon(item.type))
         holder.mTitle.text = item.product
         holder.mDescription.text = item.description
         var lifetime = "No Data"
