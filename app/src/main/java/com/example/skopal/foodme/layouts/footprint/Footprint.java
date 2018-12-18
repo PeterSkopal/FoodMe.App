@@ -139,6 +139,10 @@ public class Footprint extends Fragment {
 
         anyChartView.setChart(areaChart);
 
+        if (activity != null) {
+            activity.hideSpinner();
+        }
+
         return view;
     }
 
