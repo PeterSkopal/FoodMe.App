@@ -84,7 +84,7 @@ class SpoonacularApi(context: Context) {
      */
     fun getRecipe(id: Int, cb: (RecipeInformation?) -> Unit) {
         khttp.async.get(
-                "http://www.mocky.io/v2/5bd709d5350000f51cfd7ed9"
+                "http://www.mocky.io/v2/5c1a24c7320000600064af64"
                 /*"$baseUrl${SpoonacularApiConstants.RECIPES}/$id/information",
                 headers = SpoonacularApiConstants.spoonacularHeader(this.spoonacularKey, this.spoonacularHost)*/
         ) {
