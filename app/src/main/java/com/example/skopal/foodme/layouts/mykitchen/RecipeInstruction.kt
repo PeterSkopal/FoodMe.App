@@ -3,6 +3,7 @@ package com.example.skopal.foodme.layouts.mykitchen
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,12 +57,18 @@ class RecipeInstruction : Fragment() {
                 if (res !== null) {
                     (activity as MainActivity).setActionBarTitle(res.title)
                     (activity as MainActivity).hideSpinner()
-                    ingredients.text = res.extendedIngredients.joinToString("\n") {
+
+                    val i = "Ingredients:\n\n" +
+                            res.extendedIngredients.joinToString("\n") {
                                 "${Math.round(it.measures.metric.amount)} ${it.measures.metric.unitShort} ${it.name}"
+                            }.plus("\n")
+                    ingredients.text = i
+
+                    val ins = "Instructions:\n\n" +
+                            res.analyzedInstructions[0].steps.joinToString("\n") {
+                                "${it.number}:   ${it.step}"
                             }
-                    instructions.text = res.analyzedInstructions[0].steps.joinToString("\n") {
-                        "${it.number}: ${it.step}"
-                    }
+                    instructions.text = ins
                 }
             }
         }
