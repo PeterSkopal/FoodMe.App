@@ -40,7 +40,7 @@ class ReceiptRecognitionApi(context: Context) {
 
     fun parseReceipt(file: File, cb: (Receipt?) -> Unit) {
 
-        khttp.async.post("http://www.mocky.io/v2/5beaae2c2f0000aa19da3bcf") {
+        khttp.async.post("http://www.mocky.io/v2/5c3d84263200009a00b93a63") {
             if (statusCode != 200) {
                 cb(null)
             } else {
