@@ -18,7 +18,10 @@ class FoodMeApiGrocery(context: Context) {
     }
 
     fun getGroceries(cb: (MutableList<GroceryItem>) -> Unit) {
-        khttp.async.get(baseUrl, headers = TokenHeader.tokenHeader(this.token)) {
+        khttp.async.get(
+                "http://www.mocky.io/v2/5c4021f33500004f2fec3b3e"
+                //baseUrl, headers = TokenHeader.tokenHeader(this.token)
+            ) {
             if (statusCode != 200) {
                 cb(mutableListOf())
             } else {
@@ -29,13 +32,19 @@ class FoodMeApiGrocery(context: Context) {
     }
 
     fun addGroceries(arr: List<Map<String, String>>, cb: (Boolean) -> Unit) {
-        khttp.async.post(baseUrl, json = arr, headers = TokenHeader.tokenHeader(this.token)) {
+        khttp.async.post(
+                "http://www.mocky.io/v2/5c40263c350000512fec3b54"
+                //baseUrl, json = arr, headers = TokenHeader.tokenHeader(this.token)
+        ) {
             if (statusCode != 200) cb(false) else cb(true)
         }
     }
 
     fun deleteGrocery(id: String, cb: ((Boolean) -> Unit)?) {
-        khttp.async.delete("$baseUrl/$id", headers = TokenHeader.tokenHeader(this.token)) {
+        khttp.async.delete(
+                "http://www.mocky.io/v2/5c402663350000b12dec3b55"
+                //"$baseUrl/$id", headers = TokenHeader.tokenHeader(this.token)
+        ) {
             if (cb !== null) {
                 if (statusCode != 200) cb(false) else cb(true)
             }

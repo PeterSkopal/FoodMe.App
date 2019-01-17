@@ -6,9 +6,10 @@ class FoodMeApiPing {
     private val baseUrl = "${FoodMeApiConstants.BASE_URL}${FoodMeApiConstants.PING}"
 
     fun getPing(cb: (String) -> Unit) {
-        khttp.async.get(baseUrl) {
+        /*khttp.async.get(baseUrl) {
             cb(text)
-        }
+        }*/
+        cb("")
     }
 
 }
